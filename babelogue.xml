@@ -102,10 +102,17 @@ function onStateChange(stateObj) {
 		var text = stateObj.addedKeys[i].value;
 		var date = new Date(stateObj.addedKeys[i].timestamp * 1000);
 		
+		// split text into language code and message
+		var langCode = text.substr(0,4);
+		langCode.trim();
+		var message = text.substr(4);
+		
+		console.log(langCode + " : " + message);
+		
 		//get selected option for source language
 	    var userLanguageSelect = document.getElementById('userLanguage');
 	    var source = userLanguageSelect.options[userLanguageSelect.selectedIndex];
-		var translated_text = translateText('en', source.value, text);
+		var translated_text = translateText(langCode, source.value, message);
 		
 		var chatHTML = "<img src='" + userImgUrl + "' style='width:30px; height:30px;' />" + username + ': ' + translated_text;
         var div = document.getElementById('translateDiv');
@@ -131,10 +138,17 @@ function pressTranslateButton() {
 
 	// send text to shared state
   var user = gapi.hangout.getLocalParticipant();
-  var translated_text = translateText(source.value, 'en', text);
+<!--  var translated_text = translateText(source.value, 'en', text);-->
+  
+  // if source language code is 2 characters, pad to 4 characters
+  if(source.length == 2){
+  	source = source + "  ";
+  }
+  
+  console.log(source + text);
    
   // store translated text in the shared state as [sender id] => [English text]
-  gapi.hangout.data.setValue(user.id, translated_text);
+  gapi.hangout.data.setValue(user.id, source + text);
 
 }
 
