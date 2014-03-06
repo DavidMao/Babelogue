@@ -64,6 +64,8 @@ input,select {
 <script>
 
 var apiKey = '';
+var userSpeechLanguage = "";
+var userSpeechDialect = "";
 
 function addAPIKey() {
 	// get API key text
@@ -82,7 +84,7 @@ function toggleSpeech() {
 	var speechButton = document.getElementById('speechButton');
 	var val = speechButton.value;
 	
-	// if we are turning speech detection on
+	// Turn ON speech detection
 	if(val == "on"){
 		// set button value and text to be turn off button
 		speechButton.value = "off";
@@ -93,16 +95,34 @@ function toggleSpeech() {
     for (var i = 0; i < speech_to_lang_codes.length; i++) {
       speechLanguage.options[i] = new Option(speech_to_lang_codes[i][0], i);
     }
-    speechLanguage.selectedIndex = 6;
-    updateSpeechCountry();
-    speechDialect.selectedIndex = 6;
 
+    if (userSpeechLanguage == "") {
+      speechLanguage.selectedIndex = 6;
+      updateSpeechCountry();
+      speechDialect.selectedIndex = 6;
+    } else {
+      // User has already set language preferences before in session. Set languages
+      speechLanguage.selectedIndex = userSpeechLanguage;
+      updateSpeechCountry();
+      speechDialect.selectedIndex = userSpeechDialect;
 
+    }
+    
+    
 	}
-	else {
+	else { // Turn OFF speech detection
 		document.getElementById('speechTextArea').style.display = 'none';
 		speechButton.value = "on";
 		speechButton.innerHTML = "Turn On";
+
+    // Grab user's selected languages in case they turn it back on
+    userSpeechLanguage = speechLanguage.selectedIndex;
+    userSpeechDialect = speechDialect.selectedIndex;
+
+    console.log("userSpeechLanguage:");
+    console.log(userSpeechLanguage);
+    console.log("userSpeechDialect:");
+    console.log(userSpeechDialect);
 	}
 }
 
@@ -190,7 +210,7 @@ function onStateChange(stateObj) {
 		langCode = langCode.trim();
 		var message = text.substr(17);
 		
-		console.log(langCode + " : " + message);
+		// console.log(langCode + " : " + message);
 		
 		//get selected option for source language
 	    var userLanguageSelect = document.getElementById('userLanguage');
@@ -231,8 +251,8 @@ function pressTranslateButton() {
   var date = new Date();
   var time = date.getTime().toString();
   
-  console.log(source + text);
-  console.log(time.length);
+  // console.log(source + text);
+  // console.log(time.length);
    
   // store translated text in the shared state as [sender id] => [English text]
   gapi.hangout.data.setValue(user.id, source + time + text);
