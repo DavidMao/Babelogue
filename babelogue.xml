@@ -184,10 +184,14 @@ function pressTranslateButton() {
   	source = source + "  ";
   }
   
+  var date = new Date();
+  var time = date.getTime().toString();
+  
   console.log(source + text);
+  console.log(time.length);
    
   // store translated text in the shared state as [sender id] => [English text]
-  gapi.hangout.data.setValue(user.id, source + text);
+  gapi.hangout.data.setValue(user.id, source + time + text);
 
 }
 
