@@ -45,6 +45,9 @@ input,select {
 	<button id="speechButton" type="button" value="on" onclick="toggleSpeech()">Turn On</button>
 	
 	<div id="speechTextArea" style="display:none;">
+    <select id="speechLanguage" onchange="updateSpeechCountry()"></select>
+    &nbsp;&nbsp;
+    <select id="speechDialect"></select>
 		<textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
 		<button onclick="sendSpeech()">Send</button>
 	</div>
@@ -86,6 +89,16 @@ function toggleSpeech() {
 		speechButton.value = "off";
 		speechButton.innerHTML = "Turn Off";
 		document.getElementById('speechTextArea').style.display = '';
+
+    // Add languages to drop down
+    for (var i = 0; i < langs.length; i++) {
+      speechLanguage.options[i] = new Option(langs[i][0], i);
+    }
+    speechLanguage.selectedIndex = 6;
+    updateCountry();
+    speechDialect.selectedIndex = 6;
+
+
 	}
 	else {
 		document.getElementById('speechTextArea').style.display = 'none';
@@ -94,7 +107,12 @@ function toggleSpeech() {
 	}
 }
 
+function updateSpeechCountry() {
+
+}
+
 function sendSpeech() {
+
 }
 
 function detectLanguage(text) {
