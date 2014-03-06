@@ -48,7 +48,20 @@ input,select {
     <select id="speechLanguage" onchange="updateSpeechCountry()"></select>
     <select id="speechDialect"></select>
 		<textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
-		<button onclick="sendSpeech()">Send</button>
+		<button id="send_speech" onclick="sendSpeech()">Send</button>
+
+    <div id="speechInfo">
+      <p id="info_speak_now">Speak now.</p>
+      <p id="info_upgrade">The Speech to Text API is not supported by this browser.</p>
+      <p id="info_no_microphone" style="display:none">
+        No microphone was found. Ensure that a microphone is installed and that
+        <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+        microphone settings</a> are configured correctly.</p>
+      <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
+      <p id="info_denied">Permission to use microphone was denied.</p>
+      <p id="info_blocked">Permission to use microphone is blocked.</p>
+    </div>
+
 	</div>
 
 	<p> Your Language: </p>
@@ -105,10 +118,10 @@ function toggleSpeech() {
       speechLanguage.selectedIndex = userSpeechLanguage;
       updateSpeechCountry();
       speechDialect.selectedIndex = userSpeechDialect;
-
     }
-    
-    
+
+    // Call a function to handle Speech to Text conversions
+    speechToText();
 	}
 	else { // Turn OFF speech detection
 		document.getElementById('speechTextArea').style.display = 'none';
@@ -119,10 +132,10 @@ function toggleSpeech() {
     userSpeechLanguage = speechLanguage.selectedIndex;
     userSpeechDialect = speechDialect.selectedIndex;
 
-    console.log("userSpeechLanguage:");
-    console.log(userSpeechLanguage);
-    console.log("userSpeechDialect:");
-    console.log(userSpeechDialect);
+    // console.log("userSpeechLanguage:");
+    // console.log(userSpeechLanguage);
+    // console.log("userSpeechDialect:");
+    // console.log(userSpeechDialect);
 	}
 }
 
@@ -135,6 +148,36 @@ function updateSpeechCountry() {
     speechDialect.options.add(new Option(list[i][1], list[i][0]));
   }
   speechDialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
+}
+
+function speechToText() {
+  var final_transcript = '';
+  var recognizing = false;
+  var ignore_onend;
+  var start_timestamp;
+
+  speechAPIUnavailable();
+
+
+
+}
+
+function showSpeechInfo(s) {
+  if (s) {
+    for (var child = speechInfo.firstChild; child; child = child.nextSibling) {
+      if (child.style) {
+        child.style.display = child.id == s ? 'inline' : 'none';
+      }
+    }
+    speechInfo.style.visibility = 'visible';
+  } else {
+    speechInfo.style.visibility = 'hidden';
+  }
+}
+
+function speechAPIUnavailable() {
+  send_speech.style.visibility = 'hidden';
+  showSpeechInfo('info_upgrade');
 }
 
 function sendSpeech() {
