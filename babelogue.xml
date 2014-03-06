@@ -46,7 +46,6 @@ input,select {
 	
 	<div id="speechTextArea" style="display:none;">
     <select id="speechLanguage" onchange="updateSpeechCountry()"></select>
-    &nbsp;&nbsp;
     <select id="speechDialect"></select>
 		<textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
 		<button onclick="sendSpeech()">Send</button>
@@ -95,7 +94,7 @@ function toggleSpeech() {
       speechLanguage.options[i] = new Option(speech_to_lang_codes[i][0], i);
     }
     speechLanguage.selectedIndex = 6;
-    updateCountry();
+    updateSpeechCountry();
     speechDialect.selectedIndex = 6;
 
 
@@ -108,7 +107,14 @@ function toggleSpeech() {
 }
 
 function updateSpeechCountry() {
-
+  for (var i = speechDialect.options.length - 1; i >= 0; i--) {
+    speechDialect.remove(i);
+  }
+  var list = speech_to_lang_codes[speechLanguage.selectedIndex];
+  for (var i = 1; i < list.length; i++) {
+    speechDialect.options.add(new Option(list[i][1], list[i][0]));
+  }
+  speechDialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
 }
 
 function sendSpeech() {
