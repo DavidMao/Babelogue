@@ -135,11 +135,11 @@ function pressTranslateButton() {
   
   //get selected option for source and destination language
   var userLanguageSelect = document.getElementById('userLanguage');
-  var source = userLanguageSelect.options[userLanguageSelect.selectedIndex];
+  var source = userLanguageSelect.options[userLanguageSelect.selectedIndex].value;
 
 	// send text to shared state
   var user = gapi.hangout.getLocalParticipant();
-<!--  var translated_text = translateText(source.value, 'en', text);-->
+<!--  var translated_text = translateText(source, 'en', text);-->
   
   // if source language code is 2 characters, pad to 4 characters
   if(source.length == 2){
