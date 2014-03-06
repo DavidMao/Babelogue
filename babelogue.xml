@@ -27,7 +27,7 @@ input,select {
    margin-right: auto 
 }
 </style>
-<body onLoad="getLanguages();">
+<body>
 
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 
@@ -64,6 +64,7 @@ function addAPIKey() {
 	apiKey = document.getElementById('apiKey').value;
 	document.getElementById('getAPIKey').style.display = 'none';
 	document.getElementById('runTranslation').style.display = '';
+	getLanguages();
 }
 
 function toggleSpeech() {
@@ -146,7 +147,7 @@ function onStateChange(stateObj) {
 		// split text into language code and message
 		var langCode = text.substr(0,4);
 		langCode = langCode.trim();
-		var message = text.substr(4);
+		var message = text.substr(17);
 		
 		console.log(langCode + " : " + message);
 		
