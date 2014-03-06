@@ -33,20 +33,58 @@ input,select {
 
 <h3>Translation Hangout App</h3>
 
-<p> Your Language: </p>
-<select id="userLanguage" >
-	<option value="es">Spanish</option>
-</select>
-<div id="translateDiv" style="height:350px; overflow:auto; border:1px solid;"></div>
+<div id="getAPIKey">
+	<p>Input Your API Key (better get it right the first time):</p>
+	<textarea id="apiKey" rows="4" cols="40" placeholder="Enter your key here"></textarea>
+	<button type="button" onclick="addAPIKey()">Add Key</button>
+</div>
 
-<input type="text" id="translationText" onkeypress="catchEnter(event)" ><br>
-<p>Type and press Enter</p>
+<div id="runTranslation" style="display:none;">
+
+	<p>Translate Your Speech:</p>
+	<button id="speechButton" type="button" value="on" onclick="toggleSpeech()">Turn On</button>
+
+	<p> Your Language: </p>
+	<select id="userLanguage" >
+		<option value="es">Spanish</option>
+	</select>
+	<div id="translateDiv" style="height:350px; overflow:auto; border:1px solid;"></div>
+
+	<input type="text" id="translationText" onkeypress="catchEnter(event)" ><br>
+	<p>Type and press Enter</p>
+
+</div>
 
 <script>
 
+var apiKey = '';
+
+function addAPIKey() {
+	// get API key text
+	apiKey = document.getElementById('apiKey').value;
+	document.getElementById('getAPIKey').style.display = 'none';
+	document.getElementById('runTranslation').style.display = '';
+}
+
+function toggleSpeech() {
+	// get speech toggle button
+	var speechButton = document.getElementById('speechButton');
+	var val = speechButton.value;
+	
+	// if we are turning speech detection on
+	if(val == "on"){
+		// set button value and text to be turn off button
+		speechButton.value = "off";
+		speechButton.innerHTML = "Turn Off";
+		
+	}
+	else {
+	}
+}
+
 function detectLanguage(text) {
   var fromLang = "";
-  var langSourceAPIurl = 'https://www.googleapis.com/language/translate/v2/detect?key=&q=' 
+  var langSourceAPIurl = 'https://www.googleapis.com/language/translate/v2/detect?key=' + apiKey + '&q=' 
                          + encodeURI(text);
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.open("GET", langSourceAPIurl, false );
@@ -60,7 +98,7 @@ function detectLanguage(text) {
 }
 
 function getLanguages() {
-    var langURL = 'https://www.googleapis.com/language/translate/v2/languages?key=';
+    var langURL = 'https://www.googleapis.com/language/translate/v2/languages?key=' + apiKey;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", langURL, false );
     xmlhttp.send(null);
@@ -79,7 +117,7 @@ function translateText(fromLang, toLang, text) {
   //dont need to call translate if translating to the same language
   if(fromLang == toLang) return text;
 
-	var translateAPIurl = "https://www.googleapis.com/language/translate/v2?key=&q="+
+	var translateAPIurl = "https://www.googleapis.com/language/translate/v2?key=' + apiKey + '&q="+
 	encodeURI(text)+"&source="+ fromLang + "&target="+toLang;
 
 	var xmlhttp = new XMLHttpRequest();
@@ -105,7 +143,7 @@ function onStateChange(stateObj) {
 		
 		// split text into language code and message
 		var langCode = text.substr(0,4);
-		langCode.trim();
+		langCode = langCode.trim();
 		var message = text.substr(4);
 		
 		console.log(langCode + " : " + message);
@@ -164,8 +202,8 @@ function init() {
   gapi.hangout.onApiReady.add(
       function(eventObj) {
         if (eventObj.isApiReady) {
-          document.getElementById('runTranslation')
-            .style.visibility = 'visible';
+          document.getElementById('getAPIKey')
+            .style.display = '';
         }
       });
   
