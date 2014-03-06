@@ -100,7 +100,7 @@ function detectLanguage(text) {
 }
 
 function getLanguages() {
-    var langURL = 'https://www.googleapis.com/language/translate/v2/languages?key=' + apiKey;
+    var langURL = 'https://www.googleapis.com/language/translate/v2/languages?key=' + apiKey + '&target=en';
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", langURL, false );
     xmlhttp.send(null);
@@ -110,7 +110,7 @@ function getLanguages() {
     var dropDownList = document.getElementById('userLanguage');
     var langs = responseObject.data.languages;
     for (var x=0; x < langs.length; x++ ) {
-        dropDownList.innerHTML += '<option value=\"' + langs[x].language + '\" selected>' + langs[x].language + '</option>'; 
+        dropDownList.innerHTML += '<option value=\"' + langs[x].language + '\" selected>' + langs[x].name + '</option>'; 
     }
 }
 
@@ -186,10 +186,14 @@ function pressTranslateButton() {
   	source = source + "  ";
   }
   
+  var date = new Date();
+  var time = date.getTime().toString();
+  
   console.log(source + text);
+  console.log(time.length);
    
   // store translated text in the shared state as [sender id] => [English text]
-  gapi.hangout.data.setValue(user.id, source + text);
+  gapi.hangout.data.setValue(user.id, source + time + text);
 
 }
 
