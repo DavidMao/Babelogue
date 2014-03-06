@@ -27,7 +27,7 @@ input,select {
    margin-right: auto 
 }
 </style>
-<body style="overflow:auto;">
+<body>
 
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 
@@ -123,7 +123,12 @@ function getLanguages() {
     var dropDownList = document.getElementById('userLanguage');
     var langs = responseObject.data.languages;
     for (var x=0; x < langs.length; x++ ) {
-        dropDownList.innerHTML += '<option value=\"' + langs[x].language + '\" selected>' + langs[x].name + '</option>'; 
+    	if(langs[x].language == 'en') {
+       		dropDownList.innerHTML += '<option value=\"' + langs[x].language + '\" selected>' + langs[x].name + '</option>'; 
+        }
+        else {
+        	dropDownList.innerHTML += '<option value=\"' + langs[x].language + '\">' + langs[x].name + '</option>';
+        }
     }
 }
 
