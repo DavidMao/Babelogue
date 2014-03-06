@@ -91,8 +91,8 @@ function toggleSpeech() {
 		document.getElementById('speechTextArea').style.display = '';
 
     // Add languages to drop down
-    for (var i = 0; i < langs.length; i++) {
-      speechLanguage.options[i] = new Option(langs[i][0], i);
+    for (var i = 0; i < speech_to_lang_codes.length; i++) {
+      speechLanguage.options[i] = new Option(speech_to_lang_codes[i][0], i);
     }
     speechLanguage.selectedIndex = 6;
     updateCountry();
