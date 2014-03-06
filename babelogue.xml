@@ -35,6 +35,7 @@ input,select {
 
 <p> Your Language: </p>
 <select id="userLanguage" >
+	<option value="es">Spanish</option>
 </select>
 <div id="translateDiv" style="height:350px; overflow:auto; border:1px solid;"></div>
 
