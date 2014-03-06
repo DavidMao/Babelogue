@@ -27,7 +27,7 @@ input,select {
    margin-right: auto 
 }
 </style>
-<body>
+<body style="overflow:auto;">
 
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 
@@ -45,7 +45,7 @@ input,select {
 	<button id="speechButton" type="button" value="on" onclick="toggleSpeech()">Turn On</button>
 	
 	<div id="speechTextArea" style="display:none;">
-		<textarea id="apiKey" rows="4" cols="30" placeholder="Enter your key here"></textarea>
+		<textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
 		<button onclick="sendSpeech()">Send</button>
 	</div>
 
