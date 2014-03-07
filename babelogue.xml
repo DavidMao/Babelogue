@@ -195,6 +195,9 @@ function updateSpeechCountry() {
   // TODO: Change the recognition object's language dynamically
   if (typeof recognition !== 'undefined') {
     console.log("Recognition is defined");
+
+    recognition.stop();
+    
     recognition.lang = speechDialect.value;
 
     recognition.start();
@@ -213,6 +216,8 @@ function updateSpeechDialect() {
   // TODO: Change the recognition object's language dynamically
   if (typeof recognition !== 'undefined') {
     console.log("Recognition is defined");
+
+    recognition.stop();
     recognition.lang = speechDialect.value;
 
     recognition.start();
