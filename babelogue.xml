@@ -378,7 +378,7 @@ function sendSpeech() {
   var user = gapi.hangout.getLocalParticipant();
 
   if (source.length == 2) {
-    source = source + "  ";
+    source = source + "   ";
   }
 
   var date = new Date();
@@ -453,9 +453,9 @@ function onStateChange(stateObj) {
 		var date = new Date(stateObj.addedKeys[i].timestamp * 1000);
 		
 		// split text into language code and message
-		var langCode = text.substr(0,4);
+		var langCode = text.substr(0,5);
 		langCode = langCode.trim();
-		var message = text.substr(17);
+		var message = text.substr(18);
 		
 		// console.log(langCode + " : " + message);
 		
@@ -492,7 +492,7 @@ function pressTranslateButton() {
   
   // if source language code is 2 characters, pad to 4 characters
   if(source.length == 2){
-  	source = source + "  ";
+  	source = source + "   ";
   }
   
   var date = new Date();
