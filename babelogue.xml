@@ -42,17 +42,24 @@ input,select {
 <div id="runTranslation" style="display:none;">
 
 	<p>Translate Your Speech:</p>
-	<button id="speechButton" type="button" value="on" onclick="toggleSpeech()">Turn On</button>
+	<button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Turn On</button>
 	
 	<div id="speechTextArea" style="display:none;">
     <select id="speechLanguage" onchange="updateSpeechCountry()"></select>
     <select id="speechDialect"></select>
 		<textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
+    <div id="results">
+      <span id="final_span" class="final"></span>
+      <span id="interim_span" class="interim"></span>
+      <p>
+    </div>
 		<button id="send_speech" onclick="sendSpeech()">Send</button>
 
     <div id="speechInfo">
       <p id="info_speak_now">Speak now.</p>
-      <p id="info_upgrade">The Speech to Text API is not supported by this browser.</p>
+      <p id="info_no_speech">No speech was detected. You may need to adjust your
+        <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+          microphone settings</a>.</p>
       <p id="info_no_microphone" style="display:none">
         No microphone was found. Ensure that a microphone is installed and that
         <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
@@ -60,6 +67,7 @@ input,select {
       <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
       <p id="info_denied">Permission to use microphone was denied.</p>
       <p id="info_blocked">Permission to use microphone is blocked.</p>
+      <p id="info_upgrade">The Speech to Text API is not supported by this browser.</p>
     </div>
 
 	</div>
@@ -80,6 +88,12 @@ var apiKey = '';
 var userSpeechLanguage = "";
 var userSpeechDialect = "";
 
+// For speech
+var speech_final_transcript = '';
+var speech_recognizing = false;
+var speech_ignore_onend;
+var speech_start_timestamp;
+
 function addAPIKey() {
 	// get API key text
 	apiKey = document.getElementById('apiKey').value;
@@ -92,7 +106,7 @@ function addAPIKey() {
 	getLanguages();
 }
 
-function toggleSpeech() {
+function toggleSpeech(event) {
 	// get speech toggle button
 	var speechButton = document.getElementById('speechButton');
 	var val = speechButton.value;
@@ -121,7 +135,7 @@ function toggleSpeech() {
     }
 
     // Call a function to handle Speech to Text conversions
-    speechToText();
+    speechToText(event);
 	}
 	else { // Turn OFF speech detection
 		document.getElementById('speechTextArea').style.display = 'none';
@@ -131,6 +145,9 @@ function toggleSpeech() {
     // Grab user's selected languages in case they turn it back on
     userSpeechLanguage = speechLanguage.selectedIndex;
     userSpeechDialect = speechDialect.selectedIndex;
+
+    // Turn off speech recognizing
+    speech_recognizing = false;
 
     // console.log("userSpeechLanguage:");
     // console.log(userSpeechLanguage);
@@ -150,16 +167,110 @@ function updateSpeechCountry() {
   speechDialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
 }
 
-function speechToText() {
-  var final_transcript = '';
-  var recognizing = false;
-  var ignore_onend;
-  var start_timestamp;
+function speechToText(event) {
+  // Moved to global variables
+    // var speech_final_transcript = '';
+    // // var speech_recognizing = false;
+    // var speech_recognizing = true;
+    // var speech_ignore_onend;
+    // var speech_start_timestamp;
 
-  speechAPIUnavailable();
+  speech_recognizing = true;
 
+  // From function startButton(event)
+  speech_final_transcript = '';
+  recognition.lang = speechDialect.value;
+  recognition.start();
+  speech_ignore_onend = false;
+  final_span.innerHTML = '';
+  interim_span.innerHTML = '';
+  showSpeechInfo('info_allow');
+  speech_start_timestamp = event.timeStamp;
 
+  console.log("speech_start_timestamp:");
+  console.log(speech_start_timestamp);
+  
+  if (!('webkitSpeechRecognition' in window)) {
+    // Browser doesn't support Web Speech API. Notify user.
+    send_speech.style.visibility = 'hidden';
+    showSpeechInfo('info_upgrade');
+  } else {
+    // send_speech.style.display = 'inline-block';
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
 
+    recognition.onstart = function() {
+      speech_recognizing = true;
+      showSpeechInfo('info_speak_now');
+      // start_img.src = 'mic-animate.gif';
+    };
+
+    recognition.onerror = function(event) {
+      if (event.error == 'no-speech') {
+        showSpeechInfo('info_no_speech');
+        speech_ignore_onend = true;
+      }
+      if (event.error == 'audio-capture') {
+        showSpeechInfo('info_no_microphone');
+        speech_ignore_onend = true;
+      }
+      if (event.error == 'not-allowed') {
+        if (event.timeStamp - speech_start_timestamp < 100) {
+          showSpeechInfo('info_blocked');
+        } else {
+          showSpeechInfo('info_denied');
+        }
+        speech_ignore_onend = true;
+      }
+    };
+
+    recognition.onend = function() {
+      speech_recognizing = false;
+      if (speech_ignore_onend) {
+        return;
+      }
+      if (!speech_final_transcript) {
+        // showSpeechInfo('info_start');
+        return;
+      }
+      // showSpeechInfo('');
+      if (window.getSelection) {
+        window.getSelection().removeAllRanges();
+        var range = document.createRange();
+        range.selectNode(document.getElementById('final_span'));
+        window.getSelection().addRange(range);
+      }
+    };
+
+    recognition.onresult = function(event) {
+      var interim_transcript = '';
+      for (var i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          speech_final_transcript += event.results[i][0].transcript;
+        } else {
+          interim_transcript += event.results[i][0].transcript;
+        }
+      }
+      speech_final_transcript = capitalize(speech_final_transcript);
+      final_span.innerHTML = linebreak(speech_final_transcript);
+      interim_span.innerHTML = linebreak(interim_transcript);
+      if (speech_final_transcript || interim_transcript) {
+        showButtons('inline-block');
+      }
+    };
+  }
+
+  var two_line = /\n\n/g;
+  var one_line = /\n/g;
+  function linebreak(s) {
+    return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+  }
+
+  var first_char = /\S/;
+  function capitalize(s) {
+    return s.replace(first_char, function(m) { return m.toUpperCase(); });
+  }
 }
 
 function showSpeechInfo(s) {
@@ -173,11 +284,6 @@ function showSpeechInfo(s) {
   } else {
     speechInfo.style.visibility = 'hidden';
   }
-}
-
-function speechAPIUnavailable() {
-  send_speech.style.visibility = 'hidden';
-  showSpeechInfo('info_upgrade');
 }
 
 function sendSpeech() {
