@@ -366,6 +366,9 @@ function sendSpeech() {
   var text = document.getElementById("speechText").value;
   var source = detectLanguage(text);
 
+  // Clear the textbox
+  document.getElementById("speechText").value = '';
+
   console.log("Speech Text's Language");
   console.log(source);
 
