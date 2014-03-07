@@ -192,10 +192,12 @@ function updateSpeechCountry() {
   // Update global variables for language
   userSpeechLanguage = speechLanguage.selectedIndex;
 
-  // TODO: Change the recognition object's language on the fly
+  // TODO: Change the recognition object's language dynamically
   if (typeof recognition !== 'undefined') {
     console.log("Recognition is defined");
     recognition.lang = speechDialect.value;
+
+    console.log(recognition.lang);
   } else {
     console.log("Recognition isn't defined");
   }
@@ -204,10 +206,12 @@ function updateSpeechCountry() {
 function updateSpeechDialect() {
   userSpeechDialect = speechDialect.selectedIndex;
 
-  // TODO: Change the recognition object's language on the fly
+  // TODO: Change the recognition object's language dynamically
   if (typeof recognition !== 'undefined') {
     console.log("Recognition is defined");
     recognition.lang = speechDialect.value;
+
+    console.log(recognition.lang);
   } else {
     console.log("Recognition isn't defined");
   }
