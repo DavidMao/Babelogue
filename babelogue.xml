@@ -426,6 +426,9 @@ function getLanguages() {
 function translateText(fromLang, toLang, text) {
 
   //dont need to call translate if translating to the same language
+  // Take substring of fromLang and toLang
+  fromLang = fromLang.substr(0,2);
+  toLang = toLang.substr(0,2);
   if(fromLang == toLang) return text;
 
 	var translateAPIurl = 'https://www.googleapis.com/language/translate/v2?key=' + apiKey + '&q=' +
