@@ -48,11 +48,14 @@ input,select {
     <select id="speechLanguage" onchange="updateSpeechCountry()"></select>
     <select id="speechDialect" onchange="updateSpeechDialect()"></select>
 		<textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
+    
+<!--
     <div id="results">
       <span id="final_span" class="final"></span>
       <span id="interim_span" class="interim"></span>
       <p>
     </div>
+  -->
 		<button id="send_speech" onclick="sendSpeech()">Send</button>
 
 <!--
@@ -245,8 +248,8 @@ function speechToText(event) {
     recognition.lang = speechDialect.value;
     recognition.start();
     speech_ignore_onend = false;
-    final_span.innerHTML = '';
-    interim_span.innerHTML = '';
+    // final_span.innerHTML = '';
+    // interim_span.innerHTML = '';
     // showSpeechInfo('info_allow');
     speech_start_timestamp = event.timeStamp;
 
@@ -300,10 +303,10 @@ function speechToText(event) {
       }
       // showSpeechInfo('');
       if (window.getSelection) {
-        window.getSelection().removeAllRanges();
-        var range = document.createRange();
-        range.selectNode(document.getElementById('final_span'));
-        window.getSelection().addRange(range);
+        // window.getSelection().removeAllRanges();
+        // var range = document.createRange();
+        // range.selectNode(document.getElementById('final_span'));
+        // window.getSelection().addRange(range);
       }
     };
 
@@ -324,8 +327,8 @@ function speechToText(event) {
         }
       }
       speech_final_transcript = capitalize(speech_final_transcript);
-      final_span.innerHTML = linebreak(speech_final_transcript);
-      interim_span.innerHTML = linebreak(interim_transcript);
+      // final_span.innerHTML = linebreak(speech_final_transcript);
+      // interim_span.innerHTML = linebreak(interim_transcript);
 
       // Add converted text to the textbox
       // document.getElementById("speechText").value += speech_final_transcript;
