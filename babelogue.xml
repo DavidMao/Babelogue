@@ -99,6 +99,7 @@ var speech_final_transcript = '';
 var speech_recognizing = false;
 var speech_ignore_onend;
 var speech_start_timestamp;
+var recognition;
 
 function addAPIKey() {
 	// get API key text
@@ -116,6 +117,9 @@ function toggleSpeech(event) {
 	// get speech toggle button
 	var speechButton = document.getElementById('speechButton');
 	var val = speechButton.value;
+
+  console.log("recognition at beginning: ");
+  console.log(recognition);
 	
 	// Turn ON speech detection
 	if(val == "on"){
@@ -140,6 +144,9 @@ function toggleSpeech(event) {
       speechDialect.selectedIndex = userSpeechDialect;
     }
 
+    console.log("recognition at turnON button: ");
+    console.log(recognition);
+
     // Call a function to handle Speech to Text conversions
     speechToText(event);
 	}
@@ -154,6 +161,12 @@ function toggleSpeech(event) {
 
     // Turn off speech recognizing
     speech_recognizing = false;
+    recognition.stop()
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    console.log("recognition at turnOFF button: ");
+    console.log(recognition);
 
     // Clear the textarea
     document.getElementById("speechText").value = '';
@@ -236,7 +249,8 @@ function speechToText(event) {
     // showSpeechInfo('info_upgrade');
   } else {
     // send_speech.style.display = 'inline-block';
-    var recognition = new webkitSpeechRecognition();
+    // var recognition = new webkitSpeechRecognition();
+    recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
 
