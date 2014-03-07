@@ -46,7 +46,7 @@ input,select {
 	
 	<div id="speechTextArea" style="display:none;">
     <select id="speechLanguage" onchange="updateSpeechCountry()"></select>
-    <select id="speechDialect"></select>
+    <select id="speechDialect" onchange="updateSpeechDialect()"></select>
 		<textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
     <div id="results">
       <span id="final_span" class="final"></span>
@@ -172,11 +172,34 @@ function updateSpeechCountry() {
     speechDialect.options.add(new Option(list[i][1], list[i][0]));
   }
   speechDialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
+
+  // Update global variables for language
+  userSpeechLanguage = speechLanguage.selectedIndex;
+
+  // Change the recognition object's language
+  if (typeof recognition !== 'undefined') {
+    console.log("Recognition is defined");
+    recognition.lang = speechDialect.value;
+  } else {
+    console.log("Recognition isn't defined");
+  }
+}
+
+function updateSpeechDialect() {
+  userSpeechDialect = speechDialect.selectedIndex;
+  
+  // Change the recognition object's language
+  if (typeof recognition !== 'undefined') {
+    console.log("Recognition is defined");
+    recognition.lang = speechDialect.value;
+  } else {
+    console.log("Recognition isn't defined");
+  }
 }
 
 function speechToText(event) {
 
-  console.log("speechToText called");
+  // console.log("speechToText called");
 
   // Moved to global variables
     // var speech_final_transcript = '';
@@ -227,14 +250,14 @@ function speechToText(event) {
     // showSpeechInfo('info_allow');
     speech_start_timestamp = event.timeStamp;
 
-    console.log("speech_start_timestamp:");
-    console.log(speech_start_timestamp);
+    // console.log("speech_start_timestamp:");
+    // console.log(speech_start_timestamp);
 
     // End moved
 
     recognition.onstart = function() {
 
-      console.log("recognition.onstart called");
+      // console.log("recognition.onstart called");
 
       speech_recognizing = true;
       // showSpeechInfo('info_speak_now');
@@ -243,7 +266,7 @@ function speechToText(event) {
 
     recognition.onerror = function(event) {
 
-      console.log("recognition.onerror called");
+      // console.log("recognition.onerror called");
 
       if (event.error == 'no-speech') {
         // showSpeechInfo('info_no_speech');
@@ -265,7 +288,7 @@ function speechToText(event) {
 
     recognition.onend = function() {
 
-      console.log("recognition.onend called");
+      // console.log("recognition.onend called");
 
       speech_recognizing = false;
       if (speech_ignore_onend) {
@@ -286,7 +309,7 @@ function speechToText(event) {
 
     recognition.onresult = function(event) {
 
-      console.log("recognition.onresult called");
+      // console.log("recognition.onresult called");
 
       var interim_transcript = '';
       for (var i = event.resultIndex; i < event.results.length; ++i) {
