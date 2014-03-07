@@ -152,6 +152,10 @@ function toggleSpeech(event) {
     // Turn off speech recognizing
     speech_recognizing = false;
 
+    // Clear the textarea
+    document.getElementById("speechText").value = '';
+
+
     // console.log("userSpeechLanguage:");
     // console.log(userSpeechLanguage);
     // console.log("userSpeechDialect:");
