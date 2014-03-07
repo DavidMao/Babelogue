@@ -295,9 +295,14 @@ function speechToText(event) {
       speech_final_transcript = capitalize(speech_final_transcript);
       final_span.innerHTML = linebreak(speech_final_transcript);
       interim_span.innerHTML = linebreak(interim_transcript);
-      if (speech_final_transcript || interim_transcript) {
-        showButtons('inline-block');
-      }
+
+      // Add converted text to the textbox
+      document.getElementById("speechText").value += speech_final_transcript;
+
+
+      // if (speech_final_transcript || interim_transcript) {
+      //   showButtons('inline-block');
+      // }
     };
   }
 
