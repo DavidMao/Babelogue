@@ -196,15 +196,22 @@ function updateSpeechCountry() {
   if (typeof recognition !== 'undefined') {
     console.log("Recognition is defined");
 
+    speech_recognizing = false;
     recognition.stop();
+    recognition.continuous = false;
+    recognition.interimResults = false;
 
-    recognition = new webkitSpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
+    // recognition = new webkitSpeechRecognition();
+    // recognition.continuous = true;
+    // recognition.interimResults = true;
 
-    recognition.lang = speechDialect.value;
+    // speech_recognizing = true;
 
-    recognition.start();
+    // recognition.lang = speechDialect.value;
+
+    // recognition.start();
+
+    speechToText(event);
 
     console.log(recognition.lang);
   } else {
@@ -219,15 +226,23 @@ function updateSpeechDialect() {
   if (typeof recognition !== 'undefined') {
     console.log("Recognition is defined");
 
+    speech_recognizing = false;
     recognition.stop();
+    recognition.continuous = false;
+    recognition.interimResults = false;
 
-    recognition = new webkitSpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
+    // recognition = new webkitSpeechRecognition();
+    // recognition.continuous = true;
+    // recognition.interimResults = true;
 
-    recognition.lang = speechDialect.value;
+    // speech_recognizing = true;
 
-    recognition.start();
+    // speech_final_transcript = '';
+    // recognition.lang = speechDialect.value;
+
+    // recognition.start();
+
+    speechToText(event);
 
     console.log(recognition.lang);
   } else {
