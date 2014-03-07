@@ -176,7 +176,7 @@ function updateSpeechCountry() {
   // Update global variables for language
   userSpeechLanguage = speechLanguage.selectedIndex;
 
-  // Change the recognition object's language
+  // TODO: Change the recognition object's language on the fly
   if (typeof recognition !== 'undefined') {
     console.log("Recognition is defined");
     recognition.lang = speechDialect.value;
@@ -187,8 +187,8 @@ function updateSpeechCountry() {
 
 function updateSpeechDialect() {
   userSpeechDialect = speechDialect.selectedIndex;
-  
-  // Change the recognition object's language
+
+  // TODO: Change the recognition object's language on the fly
   if (typeof recognition !== 'undefined') {
     console.log("Recognition is defined");
     recognition.lang = speechDialect.value;
@@ -363,7 +363,11 @@ function showSpeechInfo(s) {
 }
 
 function sendSpeech() {
+  var speechToTranslate = document.getElementById("speechText").value;
+  var language = detectLanguage(speechToTranslate);
 
+  console.log("Speech Text's Language");
+  console.log(language);
 }
 
 function detectLanguage(text) {
