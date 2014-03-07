@@ -178,20 +178,21 @@ function speechToText(event) {
     // var speech_ignore_onend;
     // var speech_start_timestamp;
 
-  speech_recognizing = true;
+  // MOVED TO INSIDE THE IF STATEMENT
+  // speech_recognizing = true;
 
-  // From function startButton(event)
-  speech_final_transcript = '';
-  recognition.lang = speechDialect.value;
-  recognition.start();
-  speech_ignore_onend = false;
-  final_span.innerHTML = '';
-  interim_span.innerHTML = '';
-  // showSpeechInfo('info_allow');
-  speech_start_timestamp = event.timeStamp;
+  // // From function startButton(event)
+  // speech_final_transcript = '';
+  // recognition.lang = speechDialect.value;
+  // recognition.start();
+  // speech_ignore_onend = false;
+  // final_span.innerHTML = '';
+  // interim_span.innerHTML = '';
+  // // showSpeechInfo('info_allow');
+  // speech_start_timestamp = event.timeStamp;
 
-  console.log("speech_start_timestamp:");
-  console.log(speech_start_timestamp);
+  // console.log("speech_start_timestamp:");
+  // console.log(speech_start_timestamp);
 
   if (!('webkitSpeechRecognition' in window)) {
     // Browser doesn't support Web Speech API. Notify user.
@@ -202,6 +203,24 @@ function speechToText(event) {
     var recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
+
+    // Added
+    speech_recognizing = true;
+
+    // From function startButton(event)
+    speech_final_transcript = '';
+    recognition.lang = speechDialect.value;
+    recognition.start();
+    speech_ignore_onend = false;
+    final_span.innerHTML = '';
+    interim_span.innerHTML = '';
+    // showSpeechInfo('info_allow');
+    speech_start_timestamp = event.timeStamp;
+
+    console.log("speech_start_timestamp:");
+    console.log(speech_start_timestamp);
+
+    // End moved
 
     recognition.onstart = function() {
       speech_recognizing = true;
