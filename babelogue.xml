@@ -197,6 +197,10 @@ function updateSpeechCountry() {
     console.log("Recognition is defined");
     recognition.lang = speechDialect.value;
 
+    recognition.start();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+
     console.log(recognition.lang);
   } else {
     console.log("Recognition isn't defined");
@@ -210,6 +214,10 @@ function updateSpeechDialect() {
   if (typeof recognition !== 'undefined') {
     console.log("Recognition is defined");
     recognition.lang = speechDialect.value;
+
+    recognition.start();
+    recognition.continuous = true;
+    recognition.interimResults = true;
 
     console.log(recognition.lang);
   } else {
@@ -263,6 +271,10 @@ function speechToText(event) {
 
     // From function startButton(event)
     speech_final_transcript = '';
+
+    console.log("Language when initialized:");
+    console.log(speechDialect.value);
+
     recognition.lang = speechDialect.value;
     recognition.start();
     speech_ignore_onend = false;
