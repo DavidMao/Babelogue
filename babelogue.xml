@@ -197,12 +197,14 @@ function updateSpeechCountry() {
     console.log("Recognition is defined");
 
     recognition.stop();
-    
+
+    recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+
     recognition.lang = speechDialect.value;
 
     recognition.start();
-    recognition.continuous = true;
-    recognition.interimResults = true;
 
     console.log(recognition.lang);
   } else {
@@ -218,11 +220,14 @@ function updateSpeechDialect() {
     console.log("Recognition is defined");
 
     recognition.stop();
+
+    recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+
     recognition.lang = speechDialect.value;
 
     recognition.start();
-    recognition.continuous = true;
-    recognition.interimResults = true;
 
     console.log(recognition.lang);
   } else {
