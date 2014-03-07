@@ -117,9 +117,6 @@ function toggleSpeech(event) {
 	// get speech toggle button
 	var speechButton = document.getElementById('speechButton');
 	var val = speechButton.value;
-
-  console.log("recognition at beginning: ");
-  console.log(recognition);
 	
 	// Turn ON speech detection
 	if(val == "on"){
@@ -144,9 +141,6 @@ function toggleSpeech(event) {
       speechDialect.selectedIndex = userSpeechDialect;
     }
 
-    console.log("recognition at turnON button: ");
-    console.log(recognition);
-
     // Call a function to handle Speech to Text conversions
     speechToText(event);
 	}
@@ -165,17 +159,9 @@ function toggleSpeech(event) {
     recognition.continuous = false;
     recognition.interimResults = false;
 
-    console.log("recognition at turnOFF button: ");
-    console.log(recognition);
-
     // Clear the textarea
     document.getElementById("speechText").value = '';
 
-
-    // console.log("userSpeechLanguage:");
-    // console.log(userSpeechLanguage);
-    // console.log("userSpeechDialect:");
-    // console.log(userSpeechDialect);
 	}
 }
 
@@ -201,19 +187,12 @@ function updateSpeechCountry() {
     recognition.continuous = false;
     recognition.interimResults = false;
 
-    // recognition = new webkitSpeechRecognition();
-    // recognition.continuous = true;
-    // recognition.interimResults = true;
+    // Clear the textarea
+    document.getElementById("speechText").value = '';
 
-    // speech_recognizing = true;
-
-    // recognition.lang = speechDialect.value;
-
-    // recognition.start();
-
+    // Reinitialize recognition
     speechToText(event);
 
-    console.log(recognition.lang);
   } else {
     console.log("Recognition isn't defined");
   }
@@ -231,51 +210,18 @@ function updateSpeechDialect() {
     recognition.continuous = false;
     recognition.interimResults = false;
 
-    // recognition = new webkitSpeechRecognition();
-    // recognition.continuous = true;
-    // recognition.interimResults = true;
+    // Clear the textarea
+    document.getElementById("speechText").value = '';
 
-    // speech_recognizing = true;
-
-    // speech_final_transcript = '';
-    // recognition.lang = speechDialect.value;
-
-    // recognition.start();
-
+    // Reinitialize recognition
     speechToText(event);
 
-    console.log(recognition.lang);
   } else {
     console.log("Recognition isn't defined");
   }
 }
 
 function speechToText(event) {
-
-  // console.log("speechToText called");
-
-  // Moved to global variables
-    // var speech_final_transcript = '';
-    // // var speech_recognizing = false;
-    // var speech_recognizing = true;
-    // var speech_ignore_onend;
-    // var speech_start_timestamp;
-
-  // MOVED TO INSIDE THE IF STATEMENT
-  // speech_recognizing = true;
-
-  // // From function startButton(event)
-  // speech_final_transcript = '';
-  // recognition.lang = speechDialect.value;
-  // recognition.start();
-  // speech_ignore_onend = false;
-  // final_span.innerHTML = '';
-  // interim_span.innerHTML = '';
-  // // showSpeechInfo('info_allow');
-  // speech_start_timestamp = event.timeStamp;
-
-  // console.log("speech_start_timestamp:");
-  // console.log(speech_start_timestamp);
 
   if (!('webkitSpeechRecognition' in window)) {
 
@@ -308,14 +254,9 @@ function speechToText(event) {
     // showSpeechInfo('info_allow');
     speech_start_timestamp = event.timeStamp;
 
-    // console.log("speech_start_timestamp:");
-    // console.log(speech_start_timestamp);
-
     // End moved
 
     recognition.onstart = function() {
-
-      // console.log("recognition.onstart called");
 
       speech_recognizing = true;
       // showSpeechInfo('info_speak_now');
@@ -323,8 +264,6 @@ function speechToText(event) {
     };
 
     recognition.onerror = function(event) {
-
-      // console.log("recognition.onerror called");
 
       if (event.error == 'no-speech') {
         // showSpeechInfo('info_no_speech');
@@ -346,8 +285,6 @@ function speechToText(event) {
 
     recognition.onend = function() {
 
-      // console.log("recognition.onend called");
-
       speech_recognizing = false;
       if (speech_ignore_onend) {
         return;
@@ -367,8 +304,6 @@ function speechToText(event) {
 
     recognition.onresult = function(event) {
 
-      // console.log("recognition.onresult called");
-
       var interim_transcript = '';
       for (var i = event.resultIndex; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
@@ -387,7 +322,6 @@ function speechToText(event) {
 
       // Add converted text to the textbox
       // document.getElementById("speechText").value += speech_final_transcript;
-
 
       // if (speech_final_transcript || interim_transcript) {
       //   showButtons('inline-block');
