@@ -425,7 +425,7 @@ function translateText(fromLang, toLang, text) {
   //dont need to call translate if translating to the same language
   if(fromLang == toLang) return text;
 
-	var translateAPIurl = "https://www.googleapis.com/language/translate/v2?key=' + apiKey + '&q="+
+	var translateAPIurl = 'https://www.googleapis.com/language/translate/v2?key=' + apiKey + '&q=' +
 	encodeURI(text)+"&source="+ fromLang + "&target="+toLang;
 
 	var xmlhttp = new XMLHttpRequest();
