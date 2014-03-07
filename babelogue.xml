@@ -429,7 +429,7 @@ function translateText(fromLang, toLang, text) {
   if(fromLang == toLang) return text;
 
 	var translateAPIurl = 'https://www.googleapis.com/language/translate/v2?key=' + apiKey + '&q=' +
-	encodeURI(text)+"&source="+ fromLang + "&target="+toLang;
+	encodeURI(text)+ '&source=' + fromLang + '&target=' + toLang;
 
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("GET", translateAPIurl, false );
