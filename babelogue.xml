@@ -288,6 +288,10 @@ function speechToText(event) {
       for (var i = event.resultIndex; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
           speech_final_transcript += event.results[i][0].transcript;
+
+          // Add converted text to the textbox
+          document.getElementById("speechText").value += event.results[i][0].transcript;
+
         } else {
           interim_transcript += event.results[i][0].transcript;
         }
@@ -297,7 +301,7 @@ function speechToText(event) {
       interim_span.innerHTML = linebreak(interim_transcript);
 
       // Add converted text to the textbox
-      document.getElementById("speechText").value += speech_final_transcript;
+      // document.getElementById("speechText").value += speech_final_transcript;
 
 
       // if (speech_final_transcript || interim_transcript) {
