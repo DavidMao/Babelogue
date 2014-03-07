@@ -55,6 +55,7 @@ input,select {
     </div>
 		<button id="send_speech" onclick="sendSpeech()">Send</button>
 
+<!--
     <div id="speechInfo">
       <p id="info_speak_now">Speak now.</p>
       <p id="info_no_speech">No speech was detected. You may need to adjust your
@@ -69,6 +70,8 @@ input,select {
       <p id="info_blocked">Permission to use microphone is blocked.</p>
       <p id="info_upgrade">The Speech to Text API is not supported by this browser.</p>
     </div>
+
+  -->
 
 	</div>
 
@@ -184,16 +187,16 @@ function speechToText(event) {
   speech_ignore_onend = false;
   final_span.innerHTML = '';
   interim_span.innerHTML = '';
-  showSpeechInfo('info_allow');
+  // showSpeechInfo('info_allow');
   speech_start_timestamp = event.timeStamp;
 
   console.log("speech_start_timestamp:");
   console.log(speech_start_timestamp);
-  
+
   if (!('webkitSpeechRecognition' in window)) {
     // Browser doesn't support Web Speech API. Notify user.
     send_speech.style.visibility = 'hidden';
-    showSpeechInfo('info_upgrade');
+    // showSpeechInfo('info_upgrade');
   } else {
     // send_speech.style.display = 'inline-block';
     var recognition = new webkitSpeechRecognition();
@@ -202,24 +205,24 @@ function speechToText(event) {
 
     recognition.onstart = function() {
       speech_recognizing = true;
-      showSpeechInfo('info_speak_now');
+      // showSpeechInfo('info_speak_now');
       // start_img.src = 'mic-animate.gif';
     };
 
     recognition.onerror = function(event) {
       if (event.error == 'no-speech') {
-        showSpeechInfo('info_no_speech');
+        // showSpeechInfo('info_no_speech');
         speech_ignore_onend = true;
       }
       if (event.error == 'audio-capture') {
-        showSpeechInfo('info_no_microphone');
+        // showSpeechInfo('info_no_microphone');
         speech_ignore_onend = true;
       }
       if (event.error == 'not-allowed') {
         if (event.timeStamp - speech_start_timestamp < 100) {
-          showSpeechInfo('info_blocked');
+          // showSpeechInfo('info_blocked');
         } else {
-          showSpeechInfo('info_denied');
+          // showSpeechInfo('info_denied');
         }
         speech_ignore_onend = true;
       }
