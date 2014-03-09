@@ -39,9 +39,8 @@ input,select {
 	<button type="button" onclick="addAPIKey()">Add Key</button>
 </div>
 
-<div id="runTranslation" style="display:none; overflow:scroll;">
+<div id="runTranslation" style="display:none;">
 
-  <div id="scrollingTranslateDiv" style="overflow:scroll;">
 
 
 	<p>Translate Your Speech:</p>
@@ -89,7 +88,7 @@ input,select {
 	<input type="text" id="translationText" onkeypress="catchEnter(event)" ><br>
 	<p>Type and press Enter</p>
 
-  </div>
+
 </div>
 
 <script>
