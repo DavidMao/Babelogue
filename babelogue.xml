@@ -39,7 +39,7 @@ input,select {
 	<button type="button" onclick="addAPIKey()">Add Key</button>
 </div>
 
-<div id="runTranslation" style="display:none; overflow:scroll;">
+<div id="runTranslation" style="overflow:scroll;">
 
 	<p>Translate Your Speech:</p>
 	<button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Turn On</button>
