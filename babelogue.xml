@@ -41,6 +41,9 @@ input,select {
 
 <div id="runTranslation" style="display:none; overflow:scroll;">
 
+  <div id="scrollingTranslateDiv" style="overflow:scroll;">
+
+
 	<p>Translate Your Speech:</p>
 	<button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Turn On</button>
 	
@@ -86,6 +89,7 @@ input,select {
 	<input type="text" id="translationText" onkeypress="catchEnter(event)" ><br>
 	<p>Type and press Enter</p>
 
+  </div>
 </div>
 
 <script>
