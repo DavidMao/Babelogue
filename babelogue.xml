@@ -26,7 +26,7 @@ body {
 button,select {
    background-color: #B2D1FF;
 }
-.chat {
+.mainbox {
    background-color: #FFF0E6;
    height:350px; 
    overflow:auto; 
@@ -52,7 +52,7 @@ div,button,input,select {
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 
 <img class="logo" src="https://raw.github.com/taylorlee/Babelogue/master/logo.png">
-<div id="getAPIKey">
+<div class="mainbox"id="getAPIKey">
 	<textarea id="apiKey" rows="4" cols="30" placeholder="Enter API Key"></textarea>
 	<button type="button" onclick="addAPIKey()">Add Key</button>
 </div>
@@ -92,7 +92,7 @@ div,button,input,select {
 
 	</div>
 	<select id="userLanguage"></select>
-	<div id="translateDiv" class="chat"></div>
+	<div id="translateDiv" class="mainbox"></div>
 	<input type="text" placeholder="   Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>
     </div>
 
