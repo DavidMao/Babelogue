@@ -23,11 +23,10 @@
 body {
    background-color: #001433;
 }
-button,select {
-   background-color: #B2D1FF;
+button,select,.mainbox {
+   background-color: #FFFFFF;
 }
 .mainbox {
-   background-color: #FFF0E6;
    height:350px; 
    overflow:auto; 
    border:1px solid;
@@ -44,7 +43,6 @@ input,select,textarea,button,.logo{
    
 }
 div,button,input,select {
-   border-radius: 20px;
 }
 </style>
 <body>
