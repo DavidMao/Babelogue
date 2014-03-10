@@ -20,19 +20,38 @@
 
 <html>
 <style type="text/css">
-p {text-align:center;}
-input,select {
+body {
+   background-color: #001433;
+}
+button,select {
+   background-color: #B2D1FF;
+}
+.chat {
+   background-color: #CCE0FF;
+   height:350px; 
+   overflow:auto; 
+   border:1px solid;
+}
+p,h1 {
+    text-align:center;
+    margin-left: auto;
+    margin-right: auto
+}
+input,select,textarea,button,img {
    display: block;
    margin-left: auto;
-   margin-right: auto 
+   margin-right: auto
+   
+}
+div,button,input,select {
+   border-radius: 20px;
 }
 </style>
 <body>
 
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 
-<h3>Translation Hangout App</h3>
-
+<img src="https://raw.github.com/taylorlee/Babelogue/master/logo.png">
 <div id="getAPIKey">
 	<p>Input Your API Key (better get it right the first time):</p>
 	<textarea id="apiKey" rows="4" cols="30" placeholder="Enter your key here"></textarea>
@@ -40,16 +59,11 @@ input,select {
 </div>
 
 <div id="runTranslation" style="display:none;">
-
-
-
-	<p>Translate Your Speech:</p>
-	<button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Turn On</button>
-	
-	<div id="speechTextArea" style="display:none;">
+    <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Activate Speech Detection</button>
+    <div id="speechTextArea" style="display:none;">
     <select id="speechLanguage" onchange="updateSpeechCountry()"></select>
     <select id="speechDialect" onchange="updateSpeechDialect()"></select>
-		<textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
+    <textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
     
 <!--
     <div id="results">
@@ -58,8 +72,7 @@ input,select {
       <p>
     </div>
   -->
-		<button id="send_speech" onclick="sendSpeech()">Send</button>
-
+    <button id="send_speech" onclick="sendSpeech()">Send</button>
 <!--
     <div id="speechInfo">
       <p id="info_speak_now">Speak now.</p>
@@ -79,17 +92,10 @@ input,select {
   -->
 
 	</div>
-
-	<p> Your Language: </p>
-	<select id="userLanguage">
-	</select>
-	<div id="translateDiv" style="height:350px; overflow:auto; border:1px solid;"></div>
-
-	<input type="text" id="translationText" onkeypress="catchEnter(event)" ><br>
-	<p>Type and press Enter</p>
-
-
-</div>
+	<select id="userLanguage"></select>
+	<div id="translateDiv" class="chat"></div>
+	<input type="text" value="   Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>
+    </div>
 
 <script>
 
