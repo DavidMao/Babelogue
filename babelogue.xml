@@ -38,17 +38,18 @@ button,select,.mainbox {
 }
 .line {
     text-align:left;
-    font-size:12px;
+    font-size:14px;
 }
 .profile {
     width:30px;
     height:30px;
+    color: #001433;
 }
 .username {
     text-align:left;
     font-weight:bold;
     font-style:italic;
-    font-size:8px;
+    font-size:12px;
 }
 p,h1 {
     text-align:center;
