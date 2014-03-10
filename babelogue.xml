@@ -26,10 +26,22 @@ body {
 button,select,.mainbox {
    background-color: #FFFFFF;
 }
+.motto {
+    font-weight:bold;
+    font-style:italic;
+    color: #CCFFFF; 
+}
 .mainbox {
    height:350px; 
    overflow:auto; 
    border:1px solid;
+}
+.line {
+}
+.username {
+    font-weight:bold;
+    font-style:italic;
+    font-size:8px;
 }
 p,h1 {
     text-align:center;
@@ -40,7 +52,6 @@ input,select,textarea,button,.logo{
    display: block;
    margin-left: auto;
    margin-right: auto
-   
 }
 div,button,input,select {
 }
@@ -48,9 +59,9 @@ div,button,input,select {
 <body>
 
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
-
 <img class="logo" src="https://raw.github.com/taylorlee/Babelogue/master/logo.png">
-<div class="mainbox"id="getAPIKey">
+<p class="motto">  "Broadcast beyond barriers!"</p>
+<div id="getAPIKey">
 	<textarea id="apiKey" rows="4" cols="30" placeholder="Enter API Key"></textarea>
 	<button type="button" onclick="addAPIKey()">Add Key</button>
 </div>
@@ -85,9 +96,7 @@ div,button,input,select {
       <p id="info_blocked">Permission to use microphone is blocked.</p>
       <p id="info_upgrade">The Speech to Text API is not supported by this browser.</p>
     </div>
-
   -->
-
 	</div>
 	<select id="userLanguage"></select>
 	<div id="translateDiv" class="mainbox"></div>
@@ -128,7 +137,7 @@ function toggleSpeech(event) {
 	if(val == "on"){
 		// set button value and text to be turn off button
 		speechButton.value = "off";
-		speechButton.innerHTML = "Turn Off";
+		speechButton.innerHTML = "Deactivate";
 		document.getElementById('speechTextArea').style.display = '';
 
     // Add languages to drop down
@@ -153,7 +162,7 @@ function toggleSpeech(event) {
 	else { // Turn OFF speech detection
 		document.getElementById('speechTextArea').style.display = 'none';
 		speechButton.value = "on";
-		speechButton.innerHTML = "Turn On";
+		speechButton.innerHTML = "Activate Speech Detection";
 
     // Grab user's selected languages in case they turn it back on
     userSpeechLanguage = speechLanguage.selectedIndex;
@@ -455,7 +464,8 @@ function onStateChange(stateObj) {
 	    var source = userLanguageSelect.options[userLanguageSelect.selectedIndex];
 		var translated_text = translateText(langCode, source.value, message);
 		
-		var chatHTML = "<img src='" + userImgUrl + "' style='width:30px; height:30px;' />" + username + ': ' + translated_text;
+		var chatHTML = '<img class="profile" src="' + userImgUrl + '"/><p class="username"' + 
+                       username + ':</p><p class="line">' + translated_text + '</p>';
         var div = document.getElementById('translateDiv');
         var addElement = document.createElement("div");
         addElement.innerHTML = chatHTML;
