@@ -37,16 +37,15 @@ button,select,.mainbox {
    border:1px solid;
 }
 .line {
-    text-align:right;
+    text-align:left;
     font-size:12px;
 }
 .profile {
-    text-align:right;
-    width:25px;
-    height:25px;
-    
+    width:30px;
+    height:30px;
 }
 .username {
+    text-align:left;
     font-weight:bold;
     font-style:italic;
     font-size:8px;
@@ -472,8 +471,7 @@ function onStateChange(stateObj) {
 	    var source = userLanguageSelect.options[userLanguageSelect.selectedIndex];
 		var translated_text = translateText(langCode, source.value, message);
 		
-		var chatHTML = '<img class="profile" src="' + userImgUrl + '"/><p class="username"' + 
-                       username + ':</p><p class="line">' + translated_text + '</p>';
+		var chatHTML = '<img class="profile" src="' + userImgUrl + '"/><span class="username"' + username + ':</span><span class="line">' + translated_text + '</span>';
         var div = document.getElementById('translateDiv');
         var addElement = document.createElement("div");
         addElement.innerHTML = chatHTML;
