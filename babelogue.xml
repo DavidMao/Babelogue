@@ -36,6 +36,12 @@ input,select,textarea,button,.logo{
    margin-left: auto;
    margin-right: auto
 }
+
+#frame {
+	height: 100%;
+	overflow: auto;
+}
+
 .logo {
    height:120px;
    width:270px;
@@ -69,59 +75,59 @@ input,select,textarea,button,.logo{
 
 </style>
 <body>
+<div id="frame">
+	<script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
+	<img class="logo" src="https://raw.github.com/taylorlee/Babelogue/master/logo.png">
+	<div id="getAPIKey">
+		<textarea id="apiKey" rows="4" cols="30" placeholder="Enter API Key"></textarea>
+		<button type="button" onclick="addAPIKey()">Add Key</button>
+	</div>
 
-<script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
-<img class="logo" src="https://raw.github.com/taylorlee/Babelogue/master/logo.png">
-<div id="getAPIKey">
-	<textarea id="apiKey" rows="4" cols="30" placeholder="Enter API Key"></textarea>
-	<button type="button" onclick="addAPIKey()">Add Key</button>
+	<div id="runTranslation" style="display:none;">
+	  <select id="userLanguage"></select>
+	  <div id="translateDiv" class="mainbox"></div>
+	  <input type="text" placeholder="Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>
+	<!-- This can be used to make the chatbox textbox a textarea instead (more room to see text)
+	  <textarea id="translationText" rows="4" cols="30" placeholder="Enter text for chat..." onkeypress="catchEnter(event)" ></textarea><br>
+	-->
+
+	  <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Activate Speech Detection</button>
+	  <div id="speechTextArea" style="display:none;">
+		<select id="speechLanguage" onchange="updateSpeechCountry()"></select>
+		<select id="speechDialect" onchange="updateSpeechDialect()"></select>
+	<!-- Removed because decision to merge two input textboxes
+		<textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
+	-->
+		
+	<!--
+		<div id="results">
+		  <span id="final_span" class="final"></span>
+		  <span id="interim_span" class="interim"></span>
+		  <p>
+		</div>
+	  -->
+	<!--
+		<button id="send_speech" onclick="sendSpeech()">Send</button>
+	  -->
+	<!--
+		<div id="speechInfo">
+		  <p id="info_speak_now">Speak now.</p>
+		  <p id="info_no_speech">No speech was detected. You may need to adjust your
+		    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+		      microphone settings</a>.</p>
+		  <p id="info_no_microphone" style="display:none">
+		    No microphone was found. Ensure that a microphone is installed and that
+		    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+		    microphone settings</a> are configured correctly.</p>
+		  <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
+		  <p id="info_denied">Permission to use microphone was denied.</p>
+		  <p id="info_blocked">Permission to use microphone is blocked.</p>
+		  <p id="info_upgrade">The Speech to Text API is not supported by this browser.</p>
+		</div>
+	  -->
+	  </div>
+	</div>
 </div>
-
-<div id="runTranslation" style="display:none;">
-  <select id="userLanguage"></select>
-  <div id="translateDiv" class="mainbox"></div>
-  <input type="text" placeholder="Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>
-<!-- This can be used to make the chatbox textbox a textarea instead (more room to see text)
-  <textarea id="translationText" rows="4" cols="30" placeholder="Enter text for chat..." onkeypress="catchEnter(event)" ></textarea><br>
--->
-
-  <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Activate Speech Detection</button>
-  <div id="speechTextArea" style="display:none;">
-    <select id="speechLanguage" onchange="updateSpeechCountry()"></select>
-    <select id="speechDialect" onchange="updateSpeechDialect()"></select>
-<!-- Removed because decision to merge two input textboxes
-    <textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
--->
-    
-<!--
-    <div id="results">
-      <span id="final_span" class="final"></span>
-      <span id="interim_span" class="interim"></span>
-      <p>
-    </div>
-  -->
-<!--
-    <button id="send_speech" onclick="sendSpeech()">Send</button>
-  -->
-<!--
-    <div id="speechInfo">
-      <p id="info_speak_now">Speak now.</p>
-      <p id="info_no_speech">No speech was detected. You may need to adjust your
-        <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
-          microphone settings</a>.</p>
-      <p id="info_no_microphone" style="display:none">
-        No microphone was found. Ensure that a microphone is installed and that
-        <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
-        microphone settings</a> are configured correctly.</p>
-      <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
-      <p id="info_denied">Permission to use microphone was denied.</p>
-      <p id="info_blocked">Permission to use microphone is blocked.</p>
-      <p id="info_upgrade">The Speech to Text API is not supported by this browser.</p>
-    </div>
-  -->
-  </div>
-</div>
-
 <script>
 
 var apiKey = '';
