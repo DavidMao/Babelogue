@@ -75,6 +75,13 @@ input,select,textarea,button,.logo{
 </div>
 
 <div id="runTranslation" style="display:none;">
+  <select id="userLanguage"></select>
+  <div id="translateDiv" class="mainbox"></div>
+  <input type="text" placeholder="Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>
+<!-- This can be used to make the chatbox textbox a textarea instead (more room to see text)
+  <textarea id="translationText" rows="4" cols="30" placeholder="Enter text for chat..." onkeypress="catchEnter(event)" ></textarea><br>
+-->
+
   <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Activate Speech Detection</button>
   <div id="speechTextArea" style="display:none;">
     <select id="speechLanguage" onchange="updateSpeechCountry()"></select>
@@ -109,13 +116,7 @@ input,select,textarea,button,.logo{
       <p id="info_upgrade">The Speech to Text API is not supported by this browser.</p>
     </div>
   -->
-	</div>
-  <select id="userLanguage"></select>
-  <div id="translateDiv" class="mainbox"></div>
-  <input type="text" placeholder="Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>
-<!-- This can be used to make the chatbox textbox a textarea instead (more room to see text)
-  <textarea id="translationText" rows="4" cols="30" placeholder="Enter text for chat..." onkeypress="catchEnter(event)" ></textarea><br>
--->
+  </div>
 </div>
 
 <script>
