@@ -21,7 +21,7 @@
 <html>
 <style type="text/css">
 body {
-   background-color: #001433;
+   background-color: #B2B2B2;
 }
 button,select,.mainbox {
    background-color: #FFFFFF;
@@ -68,7 +68,6 @@ input,select,textarea,button,.logo{
 
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 <img class="logo" src="https://raw.github.com/taylorlee/Babelogue/master/logo.png">
-<p class="motto">  "Broadcast beyond barriers!"</p>
 <div id="getAPIKey">
 	<textarea id="apiKey" rows="4" cols="30" placeholder="Enter API Key"></textarea>
 	<button type="button" onclick="addAPIKey()">Add Key</button>
