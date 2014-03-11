@@ -75,8 +75,8 @@ input,select,textarea,button,.logo{
 </div>
 
 <div id="runTranslation" style="display:none;">
-    <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Activate Speech Detection</button>
-    <div id="speechTextArea" style="display:none;">
+  <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Activate Speech Detection</button>
+  <div id="speechTextArea" style="display:none;">
     <select id="speechLanguage" onchange="updateSpeechCountry()"></select>
     <select id="speechDialect" onchange="updateSpeechDialect()"></select>
     <textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
@@ -106,10 +106,10 @@ input,select,textarea,button,.logo{
     </div>
   -->
 	</div>
-	<select id="userLanguage"></select>
-	<div id="translateDiv" class="mainbox"></div>
-	<input type="text" placeholder="   Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>
-    </div>
+  <select id="userLanguage"></select>
+  <div id="translateDiv" class="mainbox"></div>
+  <input type="text" placeholder="   Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>
+</div>
 
 <script>
 
@@ -468,16 +468,16 @@ function onStateChange(stateObj) {
 		// console.log(langCode + " : " + message);
 		
 		//get selected option for source language
-	    var userLanguageSelect = document.getElementById('userLanguage');
-	    var source = userLanguageSelect.options[userLanguageSelect.selectedIndex];
+    var userLanguageSelect = document.getElementById('userLanguage');
+    var source = userLanguageSelect.options[userLanguageSelect.selectedIndex];
 		var translated_text = translateText(langCode, source.value, message);
 		
 		var chatHTML = '<img class="profile" src="' + userImgUrl + '"/><span class="username">' + username + ': </span><span class="line">' + translated_text + '</span>';
-        var div = document.getElementById('translateDiv');
-        var addElement = document.createElement("div");
-        addElement.innerHTML = chatHTML;
-        div.appendChild(addElement);
-        div.scrollTop = div.scrollHeight;
+    var div = document.getElementById('translateDiv');
+    var addElement = document.createElement("div");
+    addElement.innerHTML = chatHTML;
+    div.appendChild(addElement);
+    div.scrollTop = div.scrollHeight;
   
 		//console.log(stateObj.addedKeys[i].key);
 		//console.log(stateObj.addedKeys[i].value);
@@ -516,8 +516,8 @@ function pressTranslateButton() {
 
 // add enter functionality to input
 function catchEnter(key) {
-if(key.keyCode == 13)
-	pressTranslateButton();
+  if(key.keyCode == 13)
+  	pressTranslateButton();
 }
 
 // BEGIN: Speech to Text
