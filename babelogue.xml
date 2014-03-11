@@ -108,8 +108,10 @@ input,select,textarea,button,.logo{
 	</div>
   <select id="userLanguage"></select>
   <div id="translateDiv" class="mainbox"></div>
-  <!-- <input type="text" placeholder="   Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br> -->
+  <input type="text" placeholder="   Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>
+<!-- This can be used to make the chatbox textbox a textarea instead (more room to see text)
   <textarea id="translationText" rows="4" cols="30" placeholder="Enter text for chat..." onkeypress="catchEnter(event)" ></textarea><br>
+-->
 </div>
 
 <script>
