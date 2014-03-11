@@ -213,7 +213,6 @@ function updateSpeechCountry() {
   // Update global variables for language
   userSpeechLanguage = speechLanguage.selectedIndex;
 
-  // TODO: Change the recognition object's language dynamically
   if (typeof recognition !== 'undefined') {
     speech_recognizing = false;
     recognition.stop();
@@ -225,16 +224,13 @@ function updateSpeechCountry() {
 
     // Reinitialize recognition
     speechToText(event);
-
   }
 }
 
 function updateSpeechDialect() {
   userSpeechDialect = speechDialect.selectedIndex;
 
-  // TODO: Change the recognition object's language dynamically
   if (typeof recognition !== 'undefined') {
-
     speech_recognizing = false;
     recognition.stop();
     recognition.continuous = false;
@@ -245,7 +241,6 @@ function updateSpeechDialect() {
 
     // Reinitialize recognition
     speechToText(event);
-
   }
 }
 
@@ -256,7 +251,7 @@ function speechToText(event) {
     console.log("No Web Speech API support");
 
     // Browser doesn't support Web Speech API. Notify user.
-    send_speech.style.visibility = 'hidden';
+    // send_speech.style.visibility = 'hidden';
     // showSpeechInfo('info_upgrade');
   } else {
     // send_speech.style.display = 'inline-block';
@@ -272,9 +267,6 @@ function speechToText(event) {
     // From function startButton(event)
     speech_final_transcript = '';
 
-    // console.log("Language when initialized:");
-    // console.log(speechDialect.value);
-
     recognition.lang = speechDialect.value;
     recognition.start();
     speech_ignore_onend = false;
@@ -283,17 +275,13 @@ function speechToText(event) {
     // showSpeechInfo('info_allow');
     speech_start_timestamp = event.timeStamp;
 
-    // End moved
-
     recognition.onstart = function() {
-
       speech_recognizing = true;
       // showSpeechInfo('info_speak_now');
       // start_img.src = 'mic-animate.gif';
     };
 
     recognition.onerror = function(event) {
-
       if (event.error == 'no-speech') {
         // showSpeechInfo('info_no_speech');
         speech_ignore_onend = true;
@@ -313,7 +301,6 @@ function speechToText(event) {
     };
 
     recognition.onend = function() {
-
       speech_recognizing = false;
       if (speech_ignore_onend) {
         return;
@@ -332,7 +319,6 @@ function speechToText(event) {
     };
 
     recognition.onresult = function(event) {
-
       var interim_transcript = '';
       for (var i = event.resultIndex; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
@@ -507,8 +493,6 @@ function pressTranslateButton() {
   var userLanguageSelect = document.getElementById('userLanguage');
   var source = userLanguageSelect.options[userLanguageSelect.selectedIndex].value;
 
-  console.log(source);
-
   if (speech_detection_on) {
     // We are in speech recognizing mode, which has different user input via dropdownmenu (different menus)
     // Therefore, we cannot use the "source" var that user selected for Chatbox
@@ -516,11 +500,8 @@ function pressTranslateButton() {
     source = detectLanguage(text);
   }
 
-  console.log(source);
-
 	// send text to shared state
   var user = gapi.hangout.getLocalParticipant();
-  //<!--  var translated_text = translateText(source, 'en', text);-->
   
   // if source language code is 2 characters, pad to 4 characters
   if(source.length == 2){
@@ -544,7 +525,6 @@ function catchEnter(key) {
   	pressTranslateButton();
 }
 
-// BEGIN: Speech to Text
 var speech_to_lang_codes =
 [['Afrikaans',       ['af-ZA']],
  ['Bahasa Indonesia',['id-ID']],
@@ -608,12 +588,6 @@ var speech_to_lang_codes =
                      ['yue-Hant-HK', '粵語 (香港)']],
  ['日本語',           ['ja-JP']],
  ['Lingua latīna',   ['la']]];
-
-
-
-
- // END: Speech to Text
-
 
 
 function init() {
