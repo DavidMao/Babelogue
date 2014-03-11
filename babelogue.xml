@@ -21,7 +21,7 @@
 <html>
 <style type="text/css">
 body {
-   background-color: #C9C9C9;
+   background-color: #E5E5E5;
 }
 button,select,.mainbox {
    background-color: #FFFFFF;
