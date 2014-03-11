@@ -75,11 +75,20 @@ input,select,textarea,button,.logo{
 </div>
 
 <div id="runTranslation" style="display:none;">
-    <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Activate Speech Detection</button>
-    <div id="speechTextArea" style="display:none;">
+  <select id="userLanguage"></select>
+  <div id="translateDiv" class="mainbox"></div>
+  <input type="text" placeholder="Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>
+<!-- This can be used to make the chatbox textbox a textarea instead (more room to see text)
+  <textarea id="translationText" rows="4" cols="30" placeholder="Enter text for chat..." onkeypress="catchEnter(event)" ></textarea><br>
+-->
+
+  <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Activate Speech Detection</button>
+  <div id="speechTextArea" style="display:none;">
     <select id="speechLanguage" onchange="updateSpeechCountry()"></select>
     <select id="speechDialect" onchange="updateSpeechDialect()"></select>
+<!-- Removed because decision to merge two input textboxes
     <textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
+-->
     
 <!--
     <div id="results">
@@ -88,7 +97,9 @@ input,select,textarea,button,.logo{
       <p>
     </div>
   -->
+<!--
     <button id="send_speech" onclick="sendSpeech()">Send</button>
+  -->
 <!--
     <div id="speechInfo">
       <p id="info_speak_now">Speak now.</p>
@@ -105,11 +116,8 @@ input,select,textarea,button,.logo{
       <p id="info_upgrade">The Speech to Text API is not supported by this browser.</p>
     </div>
   -->
-	</div>
-	<select id="userLanguage"></select>
-	<div id="translateDiv" class="mainbox"></div>
-	<input type="text" placeholder="   Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>
-    </div>
+  </div>
+</div>
 
 <script>
 
@@ -118,6 +126,7 @@ var userSpeechLanguage = "";
 var userSpeechDialect = "";
 
 // For speech
+var speech_detection_on = false;
 var speech_final_transcript = '';
 var speech_recognizing = false;
 var speech_ignore_onend;
@@ -164,6 +173,8 @@ function toggleSpeech(event) {
       speechDialect.selectedIndex = userSpeechDialect;
     }
 
+    speech_detection_on = true;
+
     // Call a function to handle Speech to Text conversions
     speechToText(event);
 	}
@@ -177,13 +188,14 @@ function toggleSpeech(event) {
     userSpeechDialect = speechDialect.selectedIndex;
 
     // Turn off speech recognizing
+    speech_detection_on = false;
     speech_recognizing = false;
     recognition.stop()
     recognition.continuous = false;
     recognition.interimResults = false;
 
     // Clear the textarea
-    document.getElementById("speechText").value = '';
+    // document.getElementById("speechText").value = '';
 
 	}
 }
@@ -201,7 +213,6 @@ function updateSpeechCountry() {
   // Update global variables for language
   userSpeechLanguage = speechLanguage.selectedIndex;
 
-  // TODO: Change the recognition object's language dynamically
   if (typeof recognition !== 'undefined') {
     speech_recognizing = false;
     recognition.stop();
@@ -209,31 +220,27 @@ function updateSpeechCountry() {
     recognition.interimResults = false;
 
     // Clear the textarea
-    document.getElementById("speechText").value = '';
+    // document.getElementById("speechText").value = '';
 
     // Reinitialize recognition
     speechToText(event);
-
   }
 }
 
 function updateSpeechDialect() {
   userSpeechDialect = speechDialect.selectedIndex;
 
-  // TODO: Change the recognition object's language dynamically
   if (typeof recognition !== 'undefined') {
-
     speech_recognizing = false;
     recognition.stop();
     recognition.continuous = false;
     recognition.interimResults = false;
 
     // Clear the textarea
-    document.getElementById("speechText").value = '';
+    // document.getElementById("speechText").value = '';
 
     // Reinitialize recognition
     speechToText(event);
-
   }
 }
 
@@ -244,7 +251,7 @@ function speechToText(event) {
     console.log("No Web Speech API support");
 
     // Browser doesn't support Web Speech API. Notify user.
-    send_speech.style.visibility = 'hidden';
+    // send_speech.style.visibility = 'hidden';
     // showSpeechInfo('info_upgrade');
   } else {
     // send_speech.style.display = 'inline-block';
@@ -254,13 +261,11 @@ function speechToText(event) {
     recognition.interimResults = true;
 
     // Added
+    speech_detection_on = true;
     speech_recognizing = true;
 
     // From function startButton(event)
     speech_final_transcript = '';
-
-    // console.log("Language when initialized:");
-    // console.log(speechDialect.value);
 
     recognition.lang = speechDialect.value;
     recognition.start();
@@ -270,17 +275,13 @@ function speechToText(event) {
     // showSpeechInfo('info_allow');
     speech_start_timestamp = event.timeStamp;
 
-    // End moved
-
     recognition.onstart = function() {
-
       speech_recognizing = true;
       // showSpeechInfo('info_speak_now');
       // start_img.src = 'mic-animate.gif';
     };
 
     recognition.onerror = function(event) {
-
       if (event.error == 'no-speech') {
         // showSpeechInfo('info_no_speech');
         speech_ignore_onend = true;
@@ -300,7 +301,6 @@ function speechToText(event) {
     };
 
     recognition.onend = function() {
-
       speech_recognizing = false;
       if (speech_ignore_onend) {
         return;
@@ -319,14 +319,13 @@ function speechToText(event) {
     };
 
     recognition.onresult = function(event) {
-
       var interim_transcript = '';
       for (var i = event.resultIndex; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
           speech_final_transcript += event.results[i][0].transcript;
 
           // Add converted text to the textbox
-          document.getElementById("speechText").value += event.results[i][0].transcript;
+          document.getElementById("translationText").value += event.results[i][0].transcript;
 
         } else {
           interim_transcript += event.results[i][0].transcript;
@@ -468,16 +467,16 @@ function onStateChange(stateObj) {
 		// console.log(langCode + " : " + message);
 		
 		//get selected option for source language
-	    var userLanguageSelect = document.getElementById('userLanguage');
-	    var source = userLanguageSelect.options[userLanguageSelect.selectedIndex];
+    var userLanguageSelect = document.getElementById('userLanguage');
+    var source = userLanguageSelect.options[userLanguageSelect.selectedIndex];
 		var translated_text = translateText(langCode, source.value, message);
 		
 		var chatHTML = '<img class="profile" src="' + userImgUrl + '"/><span class="username">' + username + ': </span><span class="line">' + translated_text + '</span>';
-        var div = document.getElementById('translateDiv');
-        var addElement = document.createElement("div");
-        addElement.innerHTML = chatHTML;
-        div.appendChild(addElement);
-        div.scrollTop = div.scrollHeight;
+    var div = document.getElementById('translateDiv');
+    var addElement = document.createElement("div");
+    addElement.innerHTML = chatHTML;
+    div.appendChild(addElement);
+    div.scrollTop = div.scrollHeight;
   
 		//console.log(stateObj.addedKeys[i].key);
 		//console.log(stateObj.addedKeys[i].value);
@@ -494,9 +493,15 @@ function pressTranslateButton() {
   var userLanguageSelect = document.getElementById('userLanguage');
   var source = userLanguageSelect.options[userLanguageSelect.selectedIndex].value;
 
+  if (speech_detection_on) {
+    // We are in speech recognizing mode, which has different user input via dropdownmenu (different menus)
+    // Therefore, we cannot use the "source" var that user selected for Chatbox
+    // We need to grab the information dynamically
+    source = detectLanguage(text);
+  }
+
 	// send text to shared state
   var user = gapi.hangout.getLocalParticipant();
-  //<!--  var translated_text = translateText(source, 'en', text);-->
   
   // if source language code is 2 characters, pad to 4 characters
   if(source.length == 2){
@@ -516,11 +521,10 @@ function pressTranslateButton() {
 
 // add enter functionality to input
 function catchEnter(key) {
-if(key.keyCode == 13)
-	pressTranslateButton();
+  if(key.keyCode == 13)
+  	pressTranslateButton();
 }
 
-// BEGIN: Speech to Text
 var speech_to_lang_codes =
 [['Afrikaans',       ['af-ZA']],
  ['Bahasa Indonesia',['id-ID']],
@@ -584,12 +588,6 @@ var speech_to_lang_codes =
                      ['yue-Hant-HK', '粵語 (香港)']],
  ['日本語',           ['ja-JP']],
  ['Lingua latīna',   ['la']]];
-
-
-
-
- // END: Speech to Text
-
 
 
 function init() {
