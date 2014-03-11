@@ -610,8 +610,8 @@ function init() {
           document.getElementById('getAPIKey')
             .style.display = '';
         }
+        checkForKey();
       });
-  checkForKey();
   gapi.hangout.data.onStateChanged.add(onStateChange);
 }
 
