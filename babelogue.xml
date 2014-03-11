@@ -42,8 +42,16 @@ input,select,textarea,button,.logo{
 	overflow: auto;
 }
 
+#speechButton {
+	margin-bottom: 10px;
+}
+
+#translationText {
+	margin: 5px;
+	border: ridge 2px #64A0D6;
+}
+
 .logo {
-   height:120px;
    width:270px;
 }
 .motto {
@@ -52,8 +60,11 @@ input,select,textarea,button,.logo{
     color: #CCFFFF; 
 }
 .mainbox {
-   height:400px; 
+	min-height: 100px;
+   height:60%; 
    overflow:auto; 
+   outline: solid 1px #5E5E5E;
+	margin: 5px 0px;
 }
 .profile {
     width:30px;
@@ -86,10 +97,9 @@ input,select,textarea,button,.logo{
 	<div id="runTranslation" style="display:none;">
 	  <select id="userLanguage"></select>
 	  <div id="translateDiv" class="mainbox"></div>
-	  <input type="text" placeholder="Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>
-	<!-- This can be used to make the chatbox textbox a textarea instead (more room to see text)
-	  <textarea id="translationText" rows="4" cols="30" placeholder="Enter text for chat..." onkeypress="catchEnter(event)" ></textarea><br>
-	-->
+<!--	  <input type="text" placeholder="Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>-->
+<!--	 This can be used to make the chatbox textbox a textarea instead (more room to see text)-->
+	  <textarea id="translationText" rows="4" cols="30" placeholder="Enter text for chat..." onkeypress="catchEnter(event)" ></textarea>
 
 	  <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Activate Speech Detection</button>
 	  <div id="speechTextArea" style="display:none;">
