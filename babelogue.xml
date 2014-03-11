@@ -36,20 +36,22 @@ button,select,.mainbox {
    overflow:auto; 
    border:1px solid;
 }
-.line {
-    text-align:left;
-    font-size:14px;
-}
 .profile {
     width:30px;
     height:30px;
-    color: #001433;
+}
+.line {
+    text-align:left;
+    font-size:14px;
+    vertical-align:center;
 }
 .username {
     text-align:left;
     font-weight:bold;
     font-style:italic;
+    color: #001433;
     font-size:12px;
+    vertical-align:center;
 }
 p,h1 {
     text-align:center;
