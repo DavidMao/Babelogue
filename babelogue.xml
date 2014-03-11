@@ -125,6 +125,7 @@ var userSpeechLanguage = "";
 var userSpeechDialect = "";
 
 // For speech
+var speech_detection_on = false;
 var speech_final_transcript = '';
 var speech_recognizing = false;
 var speech_ignore_onend;
@@ -171,6 +172,8 @@ function toggleSpeech(event) {
       speechDialect.selectedIndex = userSpeechDialect;
     }
 
+    speech_detection_on = true;
+
     // Call a function to handle Speech to Text conversions
     speechToText(event);
 	}
@@ -184,6 +187,7 @@ function toggleSpeech(event) {
     userSpeechDialect = speechDialect.selectedIndex;
 
     // Turn off speech recognizing
+    speech_detection_on = false;
     speech_recognizing = false;
     recognition.stop()
     recognition.continuous = false;
@@ -261,6 +265,7 @@ function speechToText(event) {
     recognition.interimResults = true;
 
     // Added
+    speech_detection_on = true;
     speech_recognizing = true;
 
     // From function startButton(event)
@@ -503,7 +508,7 @@ function pressTranslateButton() {
 
   console.log(source);
 
-  if (speech_recognizing) {
+  if (speech_detection_on) {
     // We are in speech recognizing mode, which has different user input via dropdownmenu (different menus)
     // Therefore, we cannot use the "source" var that user selected for Chatbox
     // We need to grab the information dynamically
