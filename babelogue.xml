@@ -153,7 +153,7 @@ function toggleSpeech(event) {
 		// set button value and text to be turn off button
 		speechButton.value = "off";
 		speechButton.innerHTML = "Deactivate";
-		// document.getElementById('speechTextArea').style.display = '';
+		document.getElementById('speechTextArea').style.display = '';
 
     // Add languages to drop down
     for (var i = 0; i < speech_to_lang_codes.length; i++) {
@@ -175,7 +175,7 @@ function toggleSpeech(event) {
     speechToText(event);
 	}
 	else { // Turn OFF speech detection
-		// document.getElementById('speechTextArea').style.display = 'none';
+		document.getElementById('speechTextArea').style.display = 'none';
 		speechButton.value = "on";
 		speechButton.innerHTML = "Activate Speech Detection";
 
