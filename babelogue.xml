@@ -500,12 +500,17 @@ function pressTranslateButton() {
   //get selected option for source and destination language
   var userLanguageSelect = document.getElementById('userLanguage');
   var source = userLanguageSelect.options[userLanguageSelect.selectedIndex].value;
+
+  console.log(source);
+
   if (speech_recognizing) {
     // We are in speech recognizing mode, which has different user input via dropdownmenu (different menus)
     // Therefore, we cannot use the "source" var that user selected for Chatbox
     // We need to grab the information dynamically
     source = detectLanguage(text);
   }
+
+  console.log(source);
 
 	// send text to shared state
   var user = gapi.hangout.getLocalParticipant();
