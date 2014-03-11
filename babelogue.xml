@@ -154,7 +154,9 @@ function addAPIKey() {
 // Check for API key in shared state
 function checkForKey() {
 	var state = gapi.hangout.data.getState();
-	console.log(state['APIKey']);
+	var key = state['APIKey'];
+	console.log(state['nonexistantkey']);
+	console.log(key);
 }
 
 function toggleSpeech(event) {
