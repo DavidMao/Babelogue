@@ -21,7 +21,7 @@
 <html>
 <style type="text/css">
 body {
-   background-color: #B2B2B2;
+   background-color: #C9C9C9;
 }
 button,select,.mainbox {
    background-color: #FFFFFF;
@@ -35,6 +35,10 @@ input,select,textarea,button,.logo{
    display: block;
    margin-left: auto;
    margin-right: auto
+}
+.logo {
+   height:120px;
+   width:270px;
 }
 .motto {
     font-weight:bold;
