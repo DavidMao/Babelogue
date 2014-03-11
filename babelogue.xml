@@ -26,33 +26,6 @@ body {
 button,select,.mainbox {
    background-color: #FFFFFF;
 }
-.motto {
-    font-weight:bold;
-    font-style:italic;
-    color: #CCFFFF; 
-}
-.mainbox {
-   height:350px; 
-   overflow:auto; 
-   border:1px solid;
-}
-.profile {
-    width:30px;
-    height:30px;
-}
-.line {
-    text-align:left;
-    font-size:14px;
-    vertical-align:center;
-}
-.username {
-    text-align:left;
-    font-weight:bold;
-    font-style:italic;
-    color: #001433;
-    font-size:12px;
-    vertical-align:center;
-}
 p,h1 {
     text-align:center;
     margin-left: auto;
@@ -63,8 +36,33 @@ input,select,textarea,button,.logo{
    margin-left: auto;
    margin-right: auto
 }
-div,button,input,select {
+.motto {
+    font-weight:bold;
+    font-style:italic;
+    color: #CCFFFF; 
 }
+.mainbox {
+   height:400px; 
+   overflow:auto; 
+}
+.profile {
+    width:30px;
+    height:30px;
+}
+.line {
+    text-align:left;
+    font-size:14px;
+    vertical-align:50%;
+}
+.username {
+    text-align:left;
+    font-weight:bold;
+    font-style:italic;
+    color: #001433;
+    font-size:12px;
+    vertical-align:50%;
+}
+
 </style>
 <body>
 
@@ -498,7 +496,7 @@ function pressTranslateButton() {
 
 	// send text to shared state
   var user = gapi.hangout.getLocalParticipant();
-<!--  var translated_text = translateText(source, 'en', text);-->
+  //<!--  var translated_text = translateText(source, 'en', text);-->
   
   // if source language code is 2 characters, pad to 4 characters
   if(source.length == 2){
