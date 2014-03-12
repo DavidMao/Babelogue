@@ -51,8 +51,9 @@ input,textarea,button,.logo{
 	border: ridge 2px #64A0D6;
 }
 
+
 .logo {
-   width:270px;
+   width:250px;
 }
 .pair {
     text-align:center;
@@ -118,7 +119,7 @@ select, .title  {
 <body>
 <div id="frame">
 	<script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
-	<img class="logo" src="https://raw.github.com/taylorlee/Babelogue/master/logo.png">
+	<img class="logo" src="https://raw.github.com/taylorlee/Babelogue/master/logo.png" >
 	<div id="getAPIKey">
 		<textarea id="apiKey" rows="4" cols="30" placeholder="Enter API Key"></textarea>
 		<button type="button" onclick="addAPIKey()">Add Key</button>
