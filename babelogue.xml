@@ -144,6 +144,8 @@ var apiKey = '';
 var userSpeechLanguage = "";
 var userSpeechDialect = "";
 
+var lastUserToPost;
+
 // For speech
 var speech_detection_on = false;
 var speech_final_transcript = '';
@@ -524,7 +526,18 @@ function onStateChange(stateObj) {
     var source = userLanguageSelect.options[userLanguageSelect.selectedIndex];
 		var translated_text = translateText(langCode, source.value, message);
 		
-		var chatHTML = '<img class="profile" src="' + userImgUrl + '"/><span class="username">' + username + ': </span><span class="line">' + translated_text + '</span>';
+		var chatHTML = '';
+		if(lastUserToPost == senderId) {
+			// user was the last to post, so don't include name/image again
+			chatHTML = '<span class="line">' + translated_text + '</span>';
+		}
+		else {
+			// include name/image in post and update last user to post
+			chatHTML = '<img class="profile" src="' + userImgUrl + '"/><span class="username">' + username + ': </span><span class="line">' + translated_text + '</span>';
+			
+			lastUserToPost = senderId;
+		}
+		
     var div = document.getElementById('translateDiv');
     var addElement = document.createElement("div");
     addElement.innerHTML = chatHTML;
@@ -553,7 +566,7 @@ function pressTranslateButton() {
     source = detectLanguage(text);
   }
 
-	// send text to shared state
+	// get user
   var user = gapi.hangout.getLocalParticipant();
   
   // if source language code is 2 characters, pad to 4 characters
@@ -561,11 +574,10 @@ function pressTranslateButton() {
   	source = source + "   ";
   }
   
+  // get timestamp to make every message unique
+  // will be removed on receiving end
   var date = new Date();
   var time = date.getTime().toString();
-  
-  // console.log(source + text);
-  // console.log(time.length);
    
   // store translated text in the shared state as [sender id] => [English text]
   gapi.hangout.data.setValue(user.id, source + time + text);
