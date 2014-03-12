@@ -103,6 +103,13 @@ input,select,textarea,button,.logo{
 	max-width: 240px;
 }
 
+.listeningText{
+  font-weight:bold;
+  font-style:italic;
+  font-size:12px;
+  color:red;
+}
+
 </style>
 <body>
 <div id="frame">
@@ -122,6 +129,7 @@ input,select,textarea,button,.logo{
 
 	  <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Activate Speech Detection</button>
 	  <div id="speechTextArea" style="display:none;">
+    <div id="listeningText" style="display:none;">
 		<select id="speechLanguage" onchange="updateSpeechCountry()"></select>
 		<select id="speechDialect" onchange="updateSpeechDialect()"></select>
 	<!-- Removed because decision to merge two input textboxes
@@ -228,6 +236,10 @@ function toggleSpeech(event) {
 		speechButton.value = "off";
 		speechButton.innerHTML = "Deactivate";
 		document.getElementById('speechTextArea').style.display = '';
+
+    //added
+    document.getElementById('listeningText').innerHTML = 'Listening...';
+    document.getElementById('listeningText').style.display = '';
 		
 		// set cursor focus to text box
 		document.getElementById('translationText').focus();
@@ -255,6 +267,10 @@ function toggleSpeech(event) {
 	}
 	else { // Turn OFF speech detection
 		document.getElementById('speechTextArea').style.display = 'none';
+
+    //added
+    document.getElementById('listeningText').style.display = 'none';
+
 		speechButton.value = "on";
 		speechButton.innerHTML = "Activate Speech Detection";
 
