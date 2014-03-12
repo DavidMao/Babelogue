@@ -74,6 +74,8 @@ input,select,textarea,button,.logo{
     text-align:left;
     font-size:14px;
     vertical-align:50%;
+    margin-left: 10px;
+	color: #3F3F3F;
 }
 .username {
     text-align:left;
@@ -82,6 +84,21 @@ input,select,textarea,button,.logo{
     color: #001433;
     font-size:12px;
     vertical-align:50%;
+    margin-left: 2px;
+}
+.time {
+	margin-left: 2px;
+	text-aling: left;
+	font-style: italic;
+	font-size: 10px;
+}
+
+.imageHolder {
+	display: inline-block;
+	vertical-align: top;
+}
+.textHolder {
+	display: inline-block;
 }
 
 </style>
@@ -514,6 +531,7 @@ function onStateChange(stateObj) {
 		var text = stateObj.addedKeys[i].value;
 		var date = new Date(stateObj.addedKeys[i].timestamp * 1000);
 		
+		
 		// split text into language code and message
 		var langCode = text.substr(0,5);
 		langCode = langCode.trim();
@@ -530,8 +548,18 @@ function onStateChange(stateObj) {
 		// create a div to contain new message as well as the element that contains the chat
 		var addElement = document.createElement("div");
 		var div = document.getElementById('translateDiv');
+		
 		if(lastUserToPost == senderId) {
 			// user was the last to post, so don't include name/image again
+			
+			// if last message was old, add new time
+			if(date.getTime() - lastTime > 5000){
+				var addTime = document.createElement("div");
+				addTime.className = "time";
+				addTime.innerHTML = date.toLocaleTimeString();
+				span.appendChild(addTime);
+			{
+			
 			// new div will be of "line" class and have the translated text inside
 			addElement.className = "line";
 			addElement.innerHTML = translated_text;
@@ -541,8 +569,9 @@ function onStateChange(stateObj) {
 			span.appendChild(addElement);
 		}
 		else {
-			// include name/image in post and update last user to post
-			var chatHTML = '<span><img class="profile" src="' + userImgUrl + '"/></span><span><div class="username">' + username + ': </div><div class="line">' + translated_text + '</div></span>';
+		
+			// include name/image/time in post and update last user to post
+			var chatHTML = '<span class="imageHolder"><img class="profile" src="' + userImgUrl + '"/></span><span class="textHolder"><div class="username">' + username + ': </div>' + '<div class="time">' + date.toLocaleTimeString() + '</div>' + '<div class="line">' + translated_text + '</div></span>';
 			
 			lastUserToPost = senderId;
 			
