@@ -639,7 +639,7 @@ function pressTranslateButton() {
 function catchEnter(key) {
   if(key.keyCode == 13){
   	pressTranslateButton();
-  	document.getElementById("translationText").value = '';
+  	key.preventDefault();
   }
 }
 
