@@ -566,7 +566,7 @@ function onStateChange(stateObj) {
 				addTime.innerHTML = date.toLocaleTimeString();
 				span.appendChild(addTime);
 				lastTime = date.getTime();
-			{
+			}
 			
 			// new div will be of "line" class and have the translated text inside
 			addElement.className = "line";
