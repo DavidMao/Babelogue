@@ -637,8 +637,10 @@ function pressTranslateButton() {
 
 // add enter functionality to input
 function catchEnter(key) {
-  if(key.keyCode == 13)
+  if(key.keyCode == 13){
   	pressTranslateButton();
+  	document.getElementById("translationText").value = '';
+  }
 }
 
 var speech_to_lang_codes =
