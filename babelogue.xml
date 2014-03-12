@@ -101,7 +101,7 @@ input,select,textarea,button,.logo{
 	max-width: 240px;
 }
 
-.listeningText{
+#listeningText{
   font-weight:bold;
   font-style:italic;
   font-size:12px;
