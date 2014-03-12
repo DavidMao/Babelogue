@@ -143,7 +143,7 @@ select, .title  {
 		<select id="speechLanguage" onchange="updateSpeechCountry()"></select>
 	</div>
       <div class="pair">
-        <span class="title">Dialect: </span>
+        <span class="title" id="dialectTitle" style="">Dialect: </span>
 		<select id="speechDialect" onchange="updateSpeechDialect()"></select>
 	    </div>
 	<!-- Removed because decision to merge two input textboxes
@@ -273,7 +273,13 @@ function toggleSpeech(event) {
       updateSpeechCountry();
       speechDialect.selectedIndex = userSpeechDialect;
     }
-
+    if(document.getElementById("speechDialect").length == 0) {
+        // there are no dialects
+       document.getElementById("dialectTitle").style.display = 'none'; 
+    }
+    else {
+       document.getElementById("dialectTitle").style.display = '';
+    } 
     speech_detection_on = true;
 
     // Call a function to handle Speech to Text conversions
