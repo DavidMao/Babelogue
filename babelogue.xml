@@ -103,6 +103,14 @@ select, .title  {
 	max-width: 240px;
 }
 
+#listeningText{
+  font-weight:bold;
+  font-style:italic;
+  font-size:12px;
+  color:red;
+  text-align: center;
+}
+
 </style>
 <body>
 <div id="frame">
@@ -126,7 +134,9 @@ select, .title  {
 	  <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Turn On Speech Recognition</button>
 	  <div id="speechTextArea" style="display:none;">
       <div class="pair">
+        <div id="listeningText" style="display:none;"></div>
         <span class="title">Speech: </span>
+        <span class="title">Spoken Language: </span>
 		<select id="speechLanguage" onchange="updateSpeechCountry()"></select>
 	</div>
       <div class="pair">
@@ -237,6 +247,10 @@ function toggleSpeech(event) {
 		speechButton.value = "off";
 		speechButton.innerHTML = "Turn Off Speech Recognition";
 		document.getElementById('speechTextArea').style.display = '';
+
+    //added
+    document.getElementById('listeningText').innerHTML = 'Listening...';
+    document.getElementById('listeningText').style.display = '';
 		
 		// set cursor focus to text box
 		document.getElementById('translationText').focus();
@@ -264,8 +278,12 @@ function toggleSpeech(event) {
 	}
 	else { // Turn OFF speech detection
 		document.getElementById('speechTextArea').style.display = 'none';
+
+    //added
+    document.getElementById('listeningText').style.display = 'none';
+
 		speechButton.value = "on";
-		speechButton.innerHTML = "Turn Off Speech Recognition";
+		speechButton.innerHTML = "Turn On Speech Recognition";
 
     // Grab user's selected languages in case they turn it back on
     userSpeechLanguage = speechLanguage.selectedIndex;
