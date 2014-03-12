@@ -82,6 +82,7 @@ select, .title  {
     vertical-align:50%;
     margin: 3px 0 3px 10px;
 	color: #3F3F3F;
+	overflow-wrap: break-word;
 }
 .username {
     text-align:left;
@@ -94,7 +95,7 @@ select, .title  {
 }
 .time {
 	margin-left: 2px;
-	text-align: left;
+	text-align: right;
 	font-style: italic;
 	font-size: 10px;
 }
