@@ -144,7 +144,7 @@ select, .title  {
 		<select id="speechLanguage" onchange="updateSpeechCountry()"></select>
 	</div>
       <div class="pair">
-        <span class="title" id="dialectTitle" style="">Dialect: </span>
+        <span class="title" id="dialectTitle" style="display:">Dialect: </span>
 		<select id="speechDialect" onchange="updateSpeechDialect()"></select>
 	    </div>
 	<!-- Removed because decision to merge two input textboxes
