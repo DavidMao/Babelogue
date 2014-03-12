@@ -31,7 +31,7 @@ p,h1 {
     margin-left: auto;
     margin-right: auto
 }
-input,select,textarea,button,.logo{
+input,textarea,button,.logo{
    display: block;
    margin-left: auto;
    margin-right: auto
@@ -51,16 +51,30 @@ input,select,textarea,button,.logo{
 	border: ridge 2px #64A0D6;
 }
 
+<<<<<<< HEAD
 // .logo {
 //    width:270px;
 // }
 .title  {
     font-weight:bold;
     font-style:italic;
+=======
+.logo {
+   width:270px;
+}
+.pair {
+    text-align:center;
+}
+select, .title  {
+    display:inline-block;
+}
+.title {
+    font: -webkit-small-control;
+>>>>>>> 46026d875b4579249f1acb6ae90f8fcbfc4ed1d7
 }
 .mainbox {
    min-height: 100px;
-   height:60%; 
+   height:50%; 
    overflow:auto; 
    outline: solid 1px #5E5E5E;
    margin: 5px 0px;
@@ -120,7 +134,10 @@ input,select,textarea,button,.logo{
 	</div>
 
 	<div id="runTranslation" style="display:none;">
-      <span class="title">Input Language: </span><select id="userLanguage"></select>
+      <div class="pair">
+      <span class="title">Language: </span>
+        <select id="userLanguage"></select>
+	    </div>
 	  <div id="translateDiv" class="mainbox"></div>
 <!--	  <input type="text" placeholder="Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>-->
 <!--	 This can be used to make the chatbox textbox a textarea instead (more room to see text)-->
@@ -128,11 +145,15 @@ input,select,textarea,button,.logo{
 
 	  <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Turn On Speech Recognition</button>
 	  <div id="speechTextArea" style="display:none;">
-    <div id="listeningText" style="display:none;"></div>
-        <span class="title">Spoken Language: </span>
+      <div class="pair">
+        <div id="listeningText" style="display:none;"></div>
+        <span class="title">Speech: </span>
 		<select id="speechLanguage" onchange="updateSpeechCountry()"></select>
+	</div>
+      <div class="pair">
         <span class="title">Dialect: </span>
 		<select id="speechDialect" onchange="updateSpeechDialect()"></select>
+	    </div>
 	<!-- Removed because decision to merge two input textboxes
 		<textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
 	-->
