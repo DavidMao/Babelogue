@@ -65,7 +65,7 @@ select, .title  {
 }
 .mainbox {
    min-height: 100px;
-   height:60%; 
+   height:55%; 
    overflow:auto; 
    outline: solid 1px #5E5E5E;
    margin: 5px 0px;
