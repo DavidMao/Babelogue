@@ -276,13 +276,7 @@ function toggleSpeech(event) {
       updateSpeechCountry();
       speechDialect.selectedIndex = userSpeechDialect;
     }
-    if(speechDialect.options.length == 0 ) {
-        // there are no dialects
-       document.getElementById("dialectTitle").style.display = 'none'; 
-    }
-    else {
-       document.getElementById("dialectTitle").style.display = '';
-    } 
+
     speech_detection_on = true;
 
     // Call a function to handle Speech to Text conversions
@@ -322,7 +316,20 @@ function updateSpeechCountry() {
   for (var i = 1; i < list.length; i++) {
     speechDialect.options.add(new Option(list[i][1], list[i][0]));
   }
-  speechDialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
+
+  if(list[1].length == 1){
+
+    speechDialect.style.visibility = 'hidden';
+    document.getElementById("dialectTitle").style.display = 'none'; 
+  }
+  else {
+
+    speechDialect.style.visibility = 'visible';
+    document.getElementById("dialectTitle").style.display = '';
+
+  }
+  //speechDialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
+
 
   // Update global variables for language
   userSpeechLanguage = speechLanguage.selectedIndex;
