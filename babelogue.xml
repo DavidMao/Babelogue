@@ -559,6 +559,9 @@ function onStateChange(stateObj) {
 		if(lastUserToPost == senderId) {
 			// user was the last to post, so don't include name/image again
 			
+			// get span containing last message
+			var span = div.lastChild.lastChild;
+			
 			// if last message was old, add new time
 			if(date.getTime() - lastTime > 5000){
 				var addTime = document.createElement("div");
@@ -571,9 +574,8 @@ function onStateChange(stateObj) {
 			// new div will be of "line" class and have the translated text inside
 			addElement.className = "line";
 			addElement.innerHTML = translated_text;
-			// append to last span of last div
-			var span = div.lastChild.lastChild;
-			console.log(span);
+			
+			// append message
 			span.appendChild(addElement);
 		}
 		else {
