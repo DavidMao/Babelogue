@@ -562,11 +562,8 @@ function onStateChange(stateObj) {
 			// get span containing last message
 			var span = div.lastChild.lastChild;
 			
-			// if last message was old, add new time
-			console.log(date.getTime());
-			console.log(lastTime);
-			console.log(date.getTime()-lastTime);
-			if((date.getTime() - lastTime) > 5000){
+			// if last message was old (10 minutes), add new time
+			if((date.getTime() - lastTime) > 600000){
 				var addTime = document.createElement("div");
 				addTime.className = "time";
 				addTime.innerHTML = date.toLocaleTimeString();
