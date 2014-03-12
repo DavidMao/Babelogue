@@ -526,23 +526,31 @@ function onStateChange(stateObj) {
     var source = userLanguageSelect.options[userLanguageSelect.selectedIndex];
 		var translated_text = translateText(langCode, source.value, message);
 		
-		var chatHTML = '';
+		
+		// create a div to contain new message as well as the element that contains the chat
+		var addElement = document.createElement("div");
+		var div = document.getElementById('translateDiv');
 		if(lastUserToPost == senderId) {
 			// user was the last to post, so don't include name/image again
-			chatHTML = '<span class="line">' + translated_text + '</span>';
+			// new div will be of "line" class and have the translated text inside
+			addElement.className = "line";
+			addElement.innerHTML = translated_text;
+			// append to last span of last div
+			var span = div.lastChild.lastChild;
+			console.log(span);
+			span.appendChild(addElement);
 		}
 		else {
 			// include name/image in post and update last user to post
-			chatHTML = '<img class="profile" src="' + userImgUrl + '"/><span class="username">' + username + ': </span><span class="line">' + translated_text + '</span>';
+			var chatHTML = '<span><img class="profile" src="' + userImgUrl + '"/></span><span><div class="username">' + username + ': </div><div class="line">' + translated_text + '</div></span>';
 			
 			lastUserToPost = senderId;
+			
+			addElement.innerHTML = chatHTML;
+			div.appendChild(addElement);
 		}
 		
-    var div = document.getElementById('translateDiv');
-    var addElement = document.createElement("div");
-    addElement.innerHTML = chatHTML;
-    div.appendChild(addElement);
-    div.scrollTop = div.scrollHeight;
+    	div.scrollTop = div.scrollHeight;
   
 		//console.log(stateObj.addedKeys[i].key);
 		//console.log(stateObj.addedKeys[i].value);
