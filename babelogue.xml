@@ -43,7 +43,7 @@ input,textarea,button,.logo{
 }
 
 #speechButton {
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 }
 
 #translationText {
