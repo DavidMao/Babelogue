@@ -127,7 +127,7 @@ input,select,textarea,button,.logo{
 
 	  <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Turn On Speech Recognition</button>
 	  <div id="speechTextArea" style="display:none;">
-    <div id="listeningText" style="display:none;">
+    <div id="listeningText" style="display:none;"></div>
         <span class="title">Spoken Language: </span>
 		<select id="speechLanguage" onchange="updateSpeechCountry()"></select>
         <span class="title">Dialect: </span>
