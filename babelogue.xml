@@ -54,17 +54,16 @@ input,select,textarea,button,.logo{
 .logo {
    width:270px;
 }
-.motto {
+.title  {
     font-weight:bold;
     font-style:italic;
-    color: #CCFFFF; 
 }
 .mainbox {
-	min-height: 100px;
+   min-height: 100px;
    height:60%; 
    overflow:auto; 
    outline: solid 1px #5E5E5E;
-	margin: 5px 0px;
+   margin: 5px 0px;
 }
 .profile {
     width:30px;
@@ -88,11 +87,10 @@ input,select,textarea,button,.logo{
 }
 .time {
 	margin-left: 2px;
-	text-aling: left;
+	text-align: left;
 	font-style: italic;
 	font-size: 10px;
 }
-
 .imageHolder {
 	display: inline-block;
 	vertical-align: top;
@@ -114,15 +112,18 @@ input,select,textarea,button,.logo{
 	</div>
 
 	<div id="runTranslation" style="display:none;">
+      <span class="title">Input Language: </span>
 	  <select id="userLanguage"></select>
 	  <div id="translateDiv" class="mainbox"></div>
 <!--	  <input type="text" placeholder="Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>-->
 <!--	 This can be used to make the chatbox textbox a textarea instead (more room to see text)-->
 	  <textarea id="translationText" rows="4" cols="30" placeholder="Enter text for chat..." onkeypress="catchEnter(event)" ></textarea>
 
-	  <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Activate Speech Detection</button>
+	  <button id="speechButton" type="button" value="on" onclick="toggleSpeech(event)">Turn On Speech Recognition</button>
 	  <div id="speechTextArea" style="display:none;">
+        <span class="title">Spoken Language: </span>
 		<select id="speechLanguage" onchange="updateSpeechCountry()"></select>
+        <span class="title">Dialect: </span>
 		<select id="speechDialect" onchange="updateSpeechDialect()"></select>
 	<!-- Removed because decision to merge two input textboxes
 		<textarea id="speechText" rows="4" cols="30" placeholder="Your speech will appear here"></textarea>
@@ -226,7 +227,7 @@ function toggleSpeech(event) {
 	if(val == "on"){
 		// set button value and text to be turn off button
 		speechButton.value = "off";
-		speechButton.innerHTML = "Deactivate";
+		speechButton.innerHTML = "Turn Off Speech Recognition";
 		document.getElementById('speechTextArea').style.display = '';
 		
 		// set cursor focus to text box
@@ -256,7 +257,7 @@ function toggleSpeech(event) {
 	else { // Turn OFF speech detection
 		document.getElementById('speechTextArea').style.display = 'none';
 		speechButton.value = "on";
-		speechButton.innerHTML = "Activate Speech Detection";
+		speechButton.innerHTML = "Turn Off Speech Recognition";
 
     // Grab user's selected languages in case they turn it back on
     userSpeechLanguage = speechLanguage.selectedIndex;
