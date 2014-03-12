@@ -536,7 +536,7 @@ function onStateChange(stateObj) {
 		var username = sender.person.displayName;
 		var userImgUrl = sender.person.image.url;
 		var text = stateObj.addedKeys[i].value;
-		var date = new Date(stateObj.addedKeys[i].timestamp * 1000);
+		var date = new Date(stateObj.addedKeys[i].timestamp);
 		
 		
 		// split text into language code and message
