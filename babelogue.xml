@@ -119,7 +119,7 @@ select, .title  {
 <body>
 <div id="frame">
 	<script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
-	<img class="logo" src="https://raw.github.com/taylorlee/Babelogue/master/logo.png" width="400">
+	<img class="logo" src="https://raw.github.com/taylorlee/Babelogue/master/logo.png" >
 	<div id="getAPIKey">
 		<textarea id="apiKey" rows="4" cols="30" placeholder="Enter API Key"></textarea>
 		<button type="button" onclick="addAPIKey()">Add Key</button>
