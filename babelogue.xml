@@ -106,6 +106,7 @@ input,select,textarea,button,.logo{
   font-style:italic;
   font-size:12px;
   color:red;
+  text-align: center;
 }
 
 </style>
@@ -272,7 +273,7 @@ function toggleSpeech(event) {
     document.getElementById('listeningText').style.display = 'none';
 
 		speechButton.value = "on";
-		speechButton.innerHTML = "Turn Off Speech Recognition";
+		speechButton.innerHTML = "Turn On Speech Recognition";
 
     // Grab user's selected languages in case they turn it back on
     userSpeechLanguage = speechLanguage.selectedIndex;
