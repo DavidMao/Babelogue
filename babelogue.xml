@@ -47,7 +47,7 @@ input,select,textarea,button,.logo{
 }
 
 #translationText {
-	margin: 5px;
+	margin: 5px auto;
 	border: ridge 2px #64A0D6;
 }
 
@@ -202,7 +202,7 @@ function toggleSpeech(event) {
 		document.getElementById('speechTextArea').style.display = '';
 		
 		// set cursor focus to text box
-		document.getElementById('speechTextArea').focus();
+		document.getElementById('translationText').focus();
 
     // Add languages to drop down
     for (var i = 0; i < speech_to_lang_codes.length; i++) {
