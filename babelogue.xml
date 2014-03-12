@@ -51,17 +51,10 @@ input,textarea,button,.logo{
 	border: ridge 2px #64A0D6;
 }
 
-<<<<<<< HEAD
+
 // .logo {
 //    width:270px;
 // }
-.title  {
-    font-weight:bold;
-    font-style:italic;
-=======
-.logo {
-   width:270px;
-}
 .pair {
     text-align:center;
 }
@@ -70,7 +63,6 @@ select, .title  {
 }
 .title {
     font: -webkit-small-control;
->>>>>>> 46026d875b4579249f1acb6ae90f8fcbfc4ed1d7
 }
 .mainbox {
    min-height: 100px;
