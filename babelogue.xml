@@ -164,6 +164,9 @@ function addAPIKey() {
 	document.getElementById('getAPIKey').style.display = 'none';
 	document.getElementById('runTranslation').style.display = '';
 	
+	// set cursor focus to text box
+	document.getElementById('translationText').focus();
+	
 	// load languages
 	getLanguages();
 }
@@ -178,6 +181,9 @@ function checkForKey() {
 		// hide api key text box and show chat
 		document.getElementById('getAPIKey').style.display = 'none';
 		document.getElementById('runTranslation').style.display = '';
+		
+		// set cursor focus to text box
+		document.getElementById('translationText').focus();
 	
 		// load languages
 		getLanguages();
