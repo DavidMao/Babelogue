@@ -96,9 +96,11 @@ input,select,textarea,button,.logo{
 .imageHolder {
 	display: inline-block;
 	vertical-align: top;
+	max-width: 30px;
 }
 .textHolder {
 	display: inline-block;
+	max-width: 240px;
 }
 
 </style>
