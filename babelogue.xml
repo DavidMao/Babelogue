@@ -74,7 +74,7 @@ input,select,textarea,button,.logo{
     text-align:left;
     font-size:14px;
     vertical-align:50%;
-    margin-left: 10px;
+    margin: 3px 0 3px 10px;
 	color: #3F3F3F;
 }
 .username {
