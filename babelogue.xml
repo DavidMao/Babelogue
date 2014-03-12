@@ -112,8 +112,7 @@ input,select,textarea,button,.logo{
 	</div>
 
 	<div id="runTranslation" style="display:none;">
-      <span class="title">Input Language: </span>
-	  <select id="userLanguage"></select>
+      <span class="title">Input Language: </span><select id="userLanguage"></select>
 	  <div id="translateDiv" class="mainbox"></div>
 <!--	  <input type="text" placeholder="Enter text for chat..." id="translationText" onkeypress="catchEnter(event)" ><br>-->
 <!--	 This can be used to make the chatbox textbox a textarea instead (more room to see text)-->
