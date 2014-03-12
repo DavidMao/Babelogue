@@ -162,6 +162,7 @@ var userSpeechLanguage = "";
 var userSpeechDialect = "";
 
 var lastUserToPost;
+var lastTime = 0;
 
 // For speech
 var speech_detection_on = false;
@@ -525,6 +526,12 @@ function onStateChange(stateObj) {
 		// get information about the sender of a message as well as the
 		// English translation of the message they sent
 		var senderId = stateObj.addedKeys[i].key;
+		
+		// ignore api key in shared state
+		if(senderId == "APIKey") {
+			continue;
+		}
+		
 		var sender = gapi.hangout.getParticipantById(senderId);
 		var username = sender.person.displayName;
 		var userImgUrl = sender.person.image.url;
@@ -558,6 +565,7 @@ function onStateChange(stateObj) {
 				addTime.className = "time";
 				addTime.innerHTML = date.toLocaleTimeString();
 				span.appendChild(addTime);
+				lastTime = date.getTime();
 			{
 			
 			// new div will be of "line" class and have the translated text inside
@@ -569,7 +577,9 @@ function onStateChange(stateObj) {
 			span.appendChild(addElement);
 		}
 		else {
-		
+			// update last message time
+			lastTime = date.getTime();
+			
 			// include name/image/time in post and update last user to post
 			var chatHTML = '<span class="imageHolder"><img class="profile" src="' + userImgUrl + '"/></span><span class="textHolder"><div class="username">' + username + ': </div>' + '<div class="time">' + date.toLocaleTimeString() + '</div>' + '<div class="line">' + translated_text + '</div></span>';
 			
