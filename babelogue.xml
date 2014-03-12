@@ -139,7 +139,6 @@ select, .title  {
       <div class="pair">
         <div id="listeningText" style="display:none;"></div>
         <span class="title">Speech: </span>
-        <span class="title">Spoken Language: </span>
 		<select id="speechLanguage" onchange="updateSpeechCountry()"></select>
 	</div>
       <div class="pair">
