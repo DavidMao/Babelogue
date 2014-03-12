@@ -94,7 +94,7 @@ select, .title  {
 }
 .time {
 	margin-left: 2px;
-	text-align: left;
+	text-align: right;
 	font-style: italic;
 	font-size: 10px;
 }
