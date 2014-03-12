@@ -276,7 +276,7 @@ function toggleSpeech(event) {
       updateSpeechCountry();
       speechDialect.selectedIndex = userSpeechDialect;
     }
-    if(document.getElementById("speechDialect") == null) {
+    if(document.getElementById("speechDialect").options.length == 0 ) {
         // there are no dialects
        document.getElementById("dialectTitle").style.display = 'none'; 
     }
