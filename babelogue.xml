@@ -124,7 +124,7 @@ select, .title  {
 	<img class="logo" src="https://raw.github.com/taylorlee/Babelogue/master/logo.png" >
 	<div id="getAPIKey">
 		<textarea id="apiKey" rows="4" cols="30" placeholder="Enter API Key"></textarea>
-		<button type="button" onclick="addAPIKey()">Add Key</button>
+		<button type="button" onclick="inputAPIKey()">Add Key</button>
 	</div>
 
 	<div id="runTranslation" style="display:none;">
@@ -200,9 +200,9 @@ var speech_ignore_onend;
 var speech_start_timestamp;
 var recognition;
 
-function addAPIKey() {
-	// get API key text
-	apiKey = document.getElementById('apiKey').value;
+function addAPIKey(key){
+	// set API Key
+	apiKey = key
 	
 	// send key to shared state
 	gapi.hangout.data.clearValue("APIKey");
@@ -219,22 +219,17 @@ function addAPIKey() {
 	getLanguages();
 }
 
+function inputAPIKey() {
+	// get key from text box and send to add function
+	addAPIKey(document.getElementById('apiKey').value);
+}
+
 // Check for API key in shared state, returns 0 if key found, 1 if not found
 function checkForKey() {
 	var keys = gapi.hangout.data.getKeys();
 	if(keys.indexOf('APIKey') != -1) {
-		// get api key
-		apiKey = gapi.hangout.data.getValue('APIKey');
-		
-		// hide api key text box and show chat
-		document.getElementById('getAPIKey').style.display = 'none';
-		document.getElementById('runTranslation').style.display = '';
-		
-		// set cursor focus to text box
-		document.getElementById('translationText').focus();
-	
-		// load languages
-		getLanguages();
+		// get api key from shared state and send to add function
+		addAPIKey(gapi.hangout.data.getValue('APIKey'));
 		
 		return 0;
 	}
@@ -576,8 +571,10 @@ function onStateChange(stateObj) {
 		// English translation of the message they sent
 		var senderId = stateObj.addedKeys[i].key;
 		
-		// ignore api key in shared state
+		// if api key has been added to shared state
+		// update our key but don't translate and put it in chat
 		if(senderId == "APIKey") {
+			addAPIKey(stateObj.addedKeys[i].value);
 			continue;
 		}
 		
