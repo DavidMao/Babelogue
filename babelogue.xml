@@ -202,7 +202,8 @@ var recognition;
 
 function addAPIKey(key){
 	// set API Key
-	apiKey = key
+	apiKey = key;
+	console.log('2');
 	
 	// send key to shared state
 	gapi.hangout.data.clearValue("APIKey");
@@ -220,12 +221,14 @@ function addAPIKey(key){
 }
 
 function inputAPIKey() {
+	console.log('4');
 	// get key from text box and send to add function
 	addAPIKey(document.getElementById('apiKey').value);
 }
 
 // Check for API key in shared state, returns 0 if key found, 1 if not found
 function checkForKey() {
+	console.log('3');
 	var keys = gapi.hangout.data.getKeys();
 	if(keys.indexOf('APIKey') != -1) {
 		// get api key from shared state and send to add function
@@ -575,6 +578,7 @@ function onStateChange(stateObj) {
 		// update our key but don't translate and put it in chat
 		if(senderId == "APIKey") {
 			addAPIKey(stateObj.addedKeys[i].value);
+			console.log('1');
 			continue;
 		}
 		
