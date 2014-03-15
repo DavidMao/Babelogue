@@ -200,14 +200,17 @@ var speech_ignore_onend;
 var speech_start_timestamp;
 var recognition;
 
-function addAPIKey(key){
+// store key as api key and if sendState is true, send the key to the shared state
+function addAPIKey(key, sendState){
 	// set API Key
 	apiKey = key;
 	console.log('2');
 	
-	// send key to shared state
-	gapi.hangout.data.clearValue("APIKey");
-	gapi.hangout.data.setValue("APIKey", apiKey);
+	if(sendState) {
+		// send key to shared state
+		gapi.hangout.data.clearValue("APIKey");
+		gapi.hangout.data.setValue("APIKey", apiKey);
+	}
 	
 	// hide api key text box and show chat
 	document.getElementById('getAPIKey').style.display = 'none';
@@ -223,7 +226,7 @@ function addAPIKey(key){
 function inputAPIKey() {
 	console.log('4');
 	// get key from text box and send to add function
-	addAPIKey(document.getElementById('apiKey').value);
+	addAPIKey(document.getElementById('apiKey').value, true);
 }
 
 // Check for API key in shared state, returns 0 if key found, 1 if not found
@@ -232,7 +235,7 @@ function checkForKey() {
 	var keys = gapi.hangout.data.getKeys();
 	if(keys.indexOf('APIKey') != -1) {
 		// get api key from shared state and send to add function
-		addAPIKey(gapi.hangout.data.getValue('APIKey'));
+		addAPIKey(gapi.hangout.data.getValue('APIKey'), true);
 		
 		return 0;
 	}
@@ -577,7 +580,7 @@ function onStateChange(stateObj) {
 		// if api key has been added to shared state
 		// update our key but don't translate and put it in chat
 		if(senderId == "APIKey" && apiKey == '') {
-			addAPIKey(stateObj.addedKeys[i].value);
+			addAPIKey(stateObj.addedKeys[i].value, false);
 			console.log('1');
 			continue;
 		}
