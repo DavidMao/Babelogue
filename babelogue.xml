@@ -235,7 +235,7 @@ function checkForKey() {
 	var keys = gapi.hangout.data.getKeys();
 	if(keys.indexOf('APIKey') != -1) {
 		// get api key from shared state and send to add function
-		addAPIKey(gapi.hangout.data.getValue('APIKey'), true);
+		addAPIKey(gapi.hangout.data.getValue('APIKey'), false);
 		
 		return 0;
 	}
