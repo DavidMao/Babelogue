@@ -204,7 +204,6 @@ var recognition;
 function addAPIKey(key, sendState){
 	// set API Key
 	apiKey = key;
-	console.log('2');
 	
 	if(sendState) {
 		// send key to shared state
@@ -224,14 +223,12 @@ function addAPIKey(key, sendState){
 }
 
 function inputAPIKey() {
-	console.log('4');
 	// get key from text box and send to add function
 	addAPIKey(document.getElementById('apiKey').value, true);
 }
 
 // Check for API key in shared state, returns 0 if key found, 1 if not found
 function checkForKey() {
-	console.log('3');
 	var keys = gapi.hangout.data.getKeys();
 	if(keys.indexOf('APIKey') != -1) {
 		// get api key from shared state and send to add function
@@ -581,7 +578,6 @@ function onStateChange(stateObj) {
 		// update our key but don't translate and put it in chat
 		if(senderId == "APIKey" && apiKey == '') {
 			addAPIKey(stateObj.addedKeys[i].value, false);
-			console.log('1');
 			continue;
 		}
 		
@@ -596,8 +592,6 @@ function onStateChange(stateObj) {
 		var langCode = text.substr(0,5);
 		langCode = langCode.trim();
 		var message = text.substr(18);
-		
-		// console.log(langCode + " : " + message);
 		
 		//get selected option for source language
     var userLanguageSelect = document.getElementById('userLanguage');
@@ -645,10 +639,6 @@ function onStateChange(stateObj) {
 		}
 		
     	div.scrollTop = div.scrollHeight;
-  
-		//console.log(stateObj.addedKeys[i].key);
-		//console.log(stateObj.addedKeys[i].value);
-		//console.log(stateObj.addedKeys[i].timestamp);
 	}
 }
 
