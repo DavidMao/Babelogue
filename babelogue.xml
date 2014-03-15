@@ -576,7 +576,7 @@ function onStateChange(stateObj) {
 		
 		// if api key has been added to shared state
 		// update our key but don't translate and put it in chat
-		if(senderId == "APIKey") {
+		if(senderId == "APIKey" && apiKey == '') {
 			addAPIKey(stateObj.addedKeys[i].value);
 			console.log('1');
 			continue;
